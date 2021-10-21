@@ -13,16 +13,11 @@ from datetime import date
 from settings.config import create_connection
 from forms import formEditProfile, formRegister
 from registers import * #register, sql_insert_user,sql_get_user
-
-
 from markupsafe import escape #Cambia lo ingresado en el formulario a texto
 
 import hashlib #Criptografia
 from werkzeug.security import generate_password_hash 
 from werkzeug.security import check_password_hash
-
-
-
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
