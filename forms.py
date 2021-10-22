@@ -6,9 +6,12 @@ from wtforms.validators import Length, Email
 from wtforms.fields import TextAreaField
 
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
 '''class formEstudiante(FlaskForm):
     documento=StringField('Documento', validators=[DataRequired(message="no dejar Vacio")], render_kw={'placeholder':'Identificación', 'class':'form_control'})
     nombre=StringField('Nombre', validators=[DataRequired(message="no dejar Vacio")], render_kw={'placeholder':'Nombre', 'class':'form_control'})
@@ -89,6 +92,7 @@ class  formEditProfile(FlaskForm):
     #estado=BooleanField('Estado',render_kw={'type':'checkbox', 'required':'true'})    ---actualizar_register()
     guardar = SubmitField('Guardar', render_kw={'onmouseover':'actualizar_register()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Guardar'} )    
     cancelar = SubmitField('Cancelar', render_kw={'onmouseover':'ir_publicaciones()',  'class':'button is-link is-light', 'type':'submit', 'value':'Cancelar'} )    
+<<<<<<< HEAD
 
 
 class  formLogin(FlaskForm):
@@ -110,3 +114,5 @@ class  formLogin(FlaskForm):
         'minlength':'6'} )
     enviar = SubmitField('Inicia Sesión!', render_kw={'onmouseover':'consultar_login()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Inicia Sesión'} )
 
+=======
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41

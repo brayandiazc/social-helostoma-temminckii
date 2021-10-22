@@ -141,4 +141,8 @@ def sql_get_email_profile(usuario,correo):
                     flash("El correo ya esta asociado a otro usuario en la BD.")
                     return False   
             except Error:
+<<<<<<< HEAD
                 print(Error)              
+=======
+                print(Error)              
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41

@@ -11,19 +11,27 @@ from datetime import date
 # En tu programa que utiliza el paquete package
 #from settings import create_connection
 from settings.config import create_connection
+<<<<<<< HEAD
 from forms import formEditProfile, formRegister, formLogin
 from registers import * #register, sql_insert_user,sql_get_user
 from login import *
 
 
+=======
+from forms import formEditProfile, formRegister
+from registers import * #register, sql_insert_user,sql_get_user
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
 from markupsafe import escape #Cambia lo ingresado en el formulario a texto
 
 import hashlib #Criptografia
 from werkzeug.security import generate_password_hash 
 from werkzeug.security import check_password_hash
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -151,12 +159,16 @@ def index():
 def ingreso():
     global sesion_iniciada
     global sesion_usuario
+<<<<<<< HEAD
 
     form = formLogin()
     return render_template("login.html", form=form)    
 
 
 '''    if request.method=="GET":
+=======
+    if request.method=="GET":
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
         return render_template("login.html")
     else:
         email=request.form["email"]
@@ -206,6 +218,13 @@ def ingreso_get():
             flash("Usuario no registrado en la aplicación")
             return render_template("register.html", form=form)               
 
+<<<<<<< HEAD
+=======
+
+
+        #sesion_iniciada=True
+        #return redirect('/publicaciones')
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
 
 # Salir ----------------------
 @app.route("/salir")
@@ -224,16 +243,24 @@ def perfil():
 @app.route("/perfil_edit",methods=["GET","POST"])
 def perfil_edit():
     form=formEditProfile()
+<<<<<<< HEAD
     #row_info=sql_get_user_info(sesion_usuario)
     row_info=sql_get_user_info(session["user"])
+=======
+    row_info=sql_get_user_info(sesion_usuario)
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
     print(row_info)
     return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada,form=form, sesion_usuario=sesion_usuario, row_info=row_info)
 
 @app.route("/perfil_edit/save",methods=["GET","POST"])
 def perfil_edit_save():
     form=formEditProfile()
+<<<<<<< HEAD
     #row_info=sql_get_user_info(sesion_usuario)
     row_info=sql_get_user_info(session["user"])    
+=======
+    row_info=sql_get_user_info(sesion_usuario)
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
     print(row_info)
    
     if request.method == "POST":
@@ -254,6 +281,7 @@ def perfil_edit_save():
                     #metodo para hacer insert a la base de datos. Se encuentra en la clase register.py
                     sql_update_user_profile(usuario,nombre, apellido, correo,hashclave,bd,genero, como)
                     #flash("Usuario editado con Exito")
+<<<<<<< HEAD
                     row_info=sql_get_user_info(session["user"]) 
                     return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)   
             else:
@@ -267,6 +295,21 @@ def perfil_edit_save():
         #Metodo de envio de correo.    
 
     row_info=sql_get_user_info(session["user"]) 
+=======
+                    row_info=sql_get_user_info(sesion_usuario)
+                    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)   
+            else:
+                    flash("Correo ya esta asociado a otro usuario en la Base de datos.")
+                    row_info=sql_get_user_info(sesion_usuario)
+                    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)                    
+        
+        except Error:
+            row_info=sql_get_user_info(sesion_usuario)
+            return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)  
+        #Metodo de envio de correo.    
+
+    row_info=sql_get_user_info(sesion_usuario)
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
     return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)  
 
 # Perfil usuarios ---------------------------
@@ -389,8 +432,12 @@ def encriptar():
                     #metodo para hacer insert a la base de datos. Se encuentra en la clase register.py
                     sql_insert_user(usuario, correo,hashclave,is_active,created_at,id_type)
                     flash("usuario registrado con Exito")
+<<<<<<< HEAD
                     #return render_template("/ingreso")   
                     return redirect('/ingreso')   
+=======
+                    return render_template("login.html")   
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
                 else:
                     flash("Correo ya esta registrado en la Base de datos.")
                     return render_template("register.html", form=form)                    
@@ -401,7 +448,23 @@ def encriptar():
         except Error:
             return render_template("register.html", form=form) 
         #Metodo de envio de correo.             
+<<<<<<< HEAD
 
+=======
+    '''
+        conn =create_connection("helostoma.db") 
+        with conn as con:
+            try:
+                cur = con.cursor()                                
+                cur.execute("INSERT INTO user (username,email, password,is_active, created_at,id_type) VALUES(?,?,?,?,?,?) ", (usuario, correo,hashclave,is_active,created_at,id_type))
+                con.commit
+                flash("usuario registrado con Exito")
+                return render_template("login.html")
+            except Error:
+                con.rollback()
+                return render_template("register.html") 
+    '''
+>>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
        
 
     return "No metodo POST"
