@@ -25,7 +25,7 @@
       <div class="navbar-start"></div>
 
       <div class="navbar-end">
-        {% if sesion_iniciada %}
+        {% if sesion_iniciada==True %}
         <a href="{{ url_for('publicacion') }}" class="navbar-item">
           Publicaciones
         </a>

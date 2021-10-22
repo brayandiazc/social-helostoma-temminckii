@@ -6,24 +6,26 @@
 <!--block content-->
 {% block content %}
 <!--block content-->
-{% for message in get_flashed_messages() %}
-<div class="notification is-danger is-light has-text-centered">
-  <button class="delete"></button>
-  {{message}}
-</div>
-{%endfor%}
+  {% for message in get_flashed_messages() %}
+  <div class="notification is-danger is-light has-text-centered">
+    <button class="delete"></button>
+    {{message}}
+  </div>
+  {%endfor%}
 <form
   class="box"
   action="{{url_for('register')}}"
+  id="formRegister"
   method="post"
-  name="formRegistro"
-  onSubmit="validar_formulario();"
+  name="formRegister"
+  
 >
+  {{ form.hidden_tag() }}
   <h2 class="title has-text-centered">Registro</h2>
   <div class="field">
     <label class="label" for="username">Nombre de usuario</label>
     <div class="control">
-      <input
+      <!--<input
         class="input"
         type="text"
         id="username"
@@ -31,14 +33,16 @@
         autocomplete="username"
         required="true"
         placeholder="pepitoperez"
-      />
+      /> -->
+      {{ form.usuario() }}
     </div>
   </div>
 
   <div class="field">
     <label for="email" class="label">Email</label>
+
     <div class="control">
-      <input
+      <!--<input
         class="input"
         type="text"
         id="email"
@@ -50,14 +54,15 @@
         pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
         style="text-transform: lowercase"
         onkeyup="javascript:this.value=this.value.toLowerCase();"
-      />
+      /> -->
+      {{ form.correo() }}
     </div>
   </div>
 
   <div class="field">
-    <label for="password" class="label">Contraseña</label>
+    <label for="password" class="label">Contraseña</label>    
     <div class="control">
-      <input
+      <!--<input
         class="input"
         type="password"
         id="password"
@@ -65,13 +70,14 @@
         placeholder="Contraseña"
         required="true"
         minlength="6"
-      />
+      /> -->
+      {{ form.clave(size=20) }}
     </div>
   </div>
   <div class="field">
-    <label for="c_password" class="label">Confirmar contraseña</label>
+    <label for="c_password" class="label">Confirmar contraseña</label>  
     <div class="control">
-      <input
+      <!--<input
         class="input"
         type="password"
         id="c_password"
@@ -79,19 +85,24 @@
         placeholder="Confirmar contraseña"
         required="true"
         minlength="6"
-      />
+      /> -->
+      {{ form.clave1(size=20) }} 
     </div>
   </div>
   <div class="field">
     <label class="checkbox" for="condiciones">
-      <input type="checkbox" name="condiciones" required="true" />
+      <!--<input type="checkbox" name="condiciones" required="true" /> -->
+
+      {{ form.estado() }}
+      
       Aceptas <a href="#">terminos y condiciones</a>
     </label>
   </div>
   <div class="field">
-    <button class="button is-link is-fullwidth" type="submit" value="Enviar">
+    <!--<button class="button is-link is-fullwidth" type="submit" value="Enviar">
       Registrate!
-    </button>
+    </button> -->
+    {{ form.guardar() }}
   </div>
 </form>
 

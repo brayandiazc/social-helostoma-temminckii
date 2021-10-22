@@ -6,13 +6,24 @@
 <!--block content-->
 {% block content %}
 <!--block content-->
-<form class="box" action="/ingreso" method="POST">
+  {% for message in get_flashed_messages() %}
+  <div class="notification is-danger is-light has-text-centered">
+    <button class="delete"></button>
+    {{message}}
+  </div>
+  {%endfor%}
+<form   class="box"
+    action="{{url_for('ingreso')}}"
+    id="formLogin"
+    method="post"
+    name="formLogin">
+
   <h2 class="title has-text-centered">Inicia sesion</h2>
   {{ csrf_token }}
   <div class="field">
     <label class="label">Email</label>
     <div class="control">
-      <input
+      <!--<input
         class="input"
         type="email"
         placeholder="e.g. alex@example.com"
@@ -24,13 +35,14 @@
         onkeyup="javascript:this.value=this.value.toLowerCase();"
         id="email"
         name="email"
-      />
+      /> -->
+      {{ form.correo() }}
     </div>
   </div>
   <div class="field">
     <label class="label">Contraseña</label>
     <div class="control">
-      <input
+      <!--<input
         class="input"
         type="password"
         placeholder="Contraseña"
@@ -38,11 +50,12 @@
         minlength="6"
         id="passw"
         name="passw"
-      />
+      /> -->
+      {{ form.clave(size=20) }}
     </div>
   </div>
   <div class="field">
-    <button class="button is-link is-fullwidth">Inicia sesion!</button>
+   <!-- <button class="button is-link is-fullwidth">Inicia sesion!</button>
     {% if cadena!="" %}
     <a
       center
@@ -50,7 +63,8 @@
       style="color: red; font-size: 12px"
       >{{cadena}}</a
     >
-    {%endif%}
+    {%endif%} -->
+    {{ form.enviar() }}
   </div>
 </form>
 <nav class="level is-mobile">
