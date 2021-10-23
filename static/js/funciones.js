@@ -15,13 +15,9 @@ function actualizarEst(){
 function eliminarEst(){
     document.getElementById("formulario").action="/estudiante/delete"
 }
-<<<<<<< HEAD
 function crear_login(){
     document.getElementById("formularioLogin").action="/login/save"
 }
-=======
-
->>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
 
 function mostraContrasena(){
     var tipo = document.getElementById("password")
@@ -32,22 +28,12 @@ function mostraContrasena(){
     }
 }
 
-<<<<<<< HEAD
 
 
 
 
 function consultar_login(){
     document.getElementById("formLogin").action="/ingreso/get"
-=======
-function crear_login(){
-    document.getElementById("formularioLogin").action="/login/save"
-}
-
-
-function consultar_login(){
-    document.getElementById("formularioLogin").action="/login/get"
->>>>>>> 9faa014551c53d21cc759daea42d4ebddfcc1d41
 }
 
 function crear_register(){
