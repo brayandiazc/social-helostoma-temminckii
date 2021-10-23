@@ -1,6 +1,6 @@
 /** 
                                           *** @Modelo de la base de datos *** 
-                       Nota:(La mayoría de las tablas incluyen su ID para ser relacionadas con otras tablas) 
+                       Nota:(La mayorï¿½a de las tablas incluyen su ID para ser relacionadas con otras tablas) 
                                                                                                                 **/
                        
 /**  ----------------------------------------------------------------------------------------------        **/
@@ -10,20 +10,21 @@ CREATE TABLE user (
                                PRIMARY KEY AUTOINCREMENT, /** id: es la llave primaria auto incremental de la tabla **/                              
     name         VARCHAR (50),              /** Nombre real del usuario **/
     lastname     VARCHAR (50),              /** Apellidos del usuario **/
-    username     VARCHAR (50),              /** Nombre de usuario para inciar sesión **/
-    email        VARCHAR (255),             /** Correo para iniciar sesión y para recibir notificaciones **/
-    password     VARCHAR (60),              /** Contraseña del usuario para iniciar sesión **/
+    username     VARCHAR (50),              /** Nombre de usuario para inciar sesiï¿½n **/
+    email        VARCHAR (255),             /** Correo para iniciar sesiï¿½n y para recibir notificaciones **/
+    password     VARCHAR (60),              /** Contraseï¿½a del usuario para iniciar sesiï¿½n **/
     gender       VARCHAR (1),               /** Genero del Usuario **/
     image        VARCHAR (255),             /** Imagen del usuario para guardar las imagenes **/
     image_header VARCHAR (255),             /** Encabezado de la imagen **/
     likes        TEXT,                      /** Cosas que te gustan **/
-    is_active    BOOLEAN       DEFAULT 0,   /** Si el usuario está activo **/
+    is_active    BOOLEAN       DEFAULT 0,   /** Si el usuario estï¿½ activo **/
     id_type      INT,                       /** Tipo de usuario **/
-    created_at   DATETIME,                  /** Fecha de creación  **/
+    created_at   DATETIME,                  /** Fecha de creaciï¿½n  **/
+    bd           DATETIME,                  /** Fecha de nacimiento  **/
     FOREIGN KEY (
         id_type                             /** Identificador del tipo llave foreana **/
     )
-    REFERENCES type_user (id)               /** Relación User -> type_user  **/
+    REFERENCES type_user (id)               /** Relaciï¿½n User -> type_user  **/
 );
 
 /**  ----------------------------------------------------------------------------------------------        **/
@@ -31,9 +32,9 @@ CREATE TABLE user (
 CREATE TABLE type_user (
     id               INTEGER      NOT NULL
                                   PRIMARY KEY AUTOINCREMENT, /** Identificador type_user llave primaria **/
-    description_type VARCHAR (50),                           /** Descripción del tipo de usuario: User, admin,sup_admin **/
+    description_type VARCHAR (50),                           /** Descripciï¿½n del tipo de usuario: User, admin,sup_admin **/
     is_active        BOOLEAN      DEFAULT 0,                 /** Si el tipo de usuario esta activo **/
-    created_at       DATETIME                                /** Fecha de creación del tipo de usuario **/
+    created_at       DATETIME                                /** Fecha de creaciï¿½n del tipo de usuario **/
 );
 
 /**  ----------------------------------------------------------------------------------------------        **/
@@ -43,13 +44,13 @@ CREATE TABLE image (
                              PRIMARY KEY AUTOINCREMENT,      /** Identificador imagen llave primaria **/
     src        VARCHAR (255),                                /** Nombre del archivo de imagen, se guardaran las imagenes **/
     title      VARCHAR (200),                                /** Titulo de la imagen **/                               
-    content    VARCHAR (500),                                /** Descripción de la imagen del usuario **/
+    content    VARCHAR (500),                                /** Descripciï¿½n de la imagen del usuario **/
     user_id    INT,                                          /** Id del usuario propietario de la imagen **/
-    created_at DATETIME,                                     /** Fecha de creación o publicación de la imagen **/
+    created_at DATETIME,                                     /** Fecha de creaciï¿½n o publicaciï¿½n de la imagen **/
     FOREIGN KEY (
-        user_id                                              /** relación del identificador del usuario **/
+        user_id                                              /** relaciï¿½n del identificador del usuario **/
     )
-    REFERENCES user (id)                                     /** relación id user **/
+    REFERENCES user (id)                                     /** relaciï¿½n id user **/
 );
 
 /**  ----------------------------------------------------------------------------------------------        **/
@@ -57,32 +58,32 @@ CREATE TABLE image (
 CREATE TABLE post (
     id            INTEGER       NOT NULL
                                 PRIMARY KEY AUTOINCREMENT,   /** Identificador del post o publicaciones llave primaria **/
-    title         VARCHAR (500),                             /** Titulo de la publicación **/
-    content       TEXT,                                      /** Contenido de la publicación **/
-    lat           DOUBLE,                                    /** Coordenada latitud para la ubicación **/
-    lng           DOUBLE,                                    /** Coordenada longitud para la ubicación **/
-    start_at      DATETIME,                                  /** Fecha de inicio de la publicación **/
-    finish_at     DATETIME,                                  /** Fecha de fin de la publicación **/
+    title         VARCHAR (500),                             /** Titulo de la publicaciï¿½n **/
+    content       TEXT,                                      /** Contenido de la publicaciï¿½n **/
+    lat           DOUBLE,                                    /** Coordenada latitud para la ubicaciï¿½n **/
+    lng           DOUBLE,                                    /** Coordenada longitud para la ubicaciï¿½n **/
+    start_at      DATETIME,                                  /** Fecha de inicio de la publicaciï¿½n **/
+    finish_at     DATETIME,                                  /** Fecha de fin de la publicaciï¿½n **/
     author_ref_id INT,                                       /** El id del usuario que publica **/
-    created_at    DATETIME,                                  /** Fecha de creación de la publicación **/
-    is_active     BOOLEAN,                                   /** La publicación se encuentra activa o desactivada**/
+    created_at    DATETIME,                                  /** Fecha de creaciï¿½n de la publicaciï¿½n **/
+    is_active     BOOLEAN,                                   /** La publicaciï¿½n se encuentra activa o desactivada**/
     FOREIGN KEY (
         author_ref_id                                        /** identificacdor author_ref_id llave foreana **/
     )
-    REFERENCES user (id)                                     /** relación id user **/
+    REFERENCES user (id)                                     /** relaciï¿½n id user **/
 );
 
 /**  ----------------------------------------------------------------------------------------------        **/
 /* Tipo post o publicaciones a imagenes  */
 CREATE TABLE post_image (
-    post_id  INT,                                            /** Identificador de la publicación **/
+    post_id  INT,                                            /** Identificador de la publicaciï¿½n **/
     image_id INT,                                            /** Identificador de la imagen **/
     FOREIGN KEY (                          
-        post_id                                              /** Relación post_id llave foreana **/
+        post_id                                              /** Relaciï¿½n post_id llave foreana **/
     )
-    REFERENCES post (id),                                    /** Relación post_id **/
+    REFERENCES post (id),                                    /** Relaciï¿½n post_id **/
     FOREIGN KEY (
-        image_id                                             /** Relación imagen_id llave foreana **/                                           
+        image_id                                             /** Relaciï¿½n imagen_id llave foreana **/                                           
     )
     REFERENCES image (id)                                    /** Referenciada a imagen_id **/
 );
@@ -92,13 +93,13 @@ CREATE TABLE post_image (
 CREATE TABLE qualification (
     id         INTEGER  NOT NULL
                         PRIMARY KEY AUTOINCREMENT,           /** Identificador del qualification llave primaria **/
-    ref_id     INT,                                          /**  El id de referencia del usuario que califica la publicación **/
-    user_id    INT,                                          /**  El id del usuario que califica la publicación **/
-    created_at DATETIME,                                     /**  El fecha de calificación la publicación **/
+    ref_id     INT,                                          /**  El id de referencia del usuario que califica la publicaciï¿½n **/
+    user_id    INT,                                          /**  El id del usuario que califica la publicaciï¿½n **/
+    created_at DATETIME,                                     /**  El fecha de calificaciï¿½n la publicaciï¿½n **/
     FOREIGN KEY (
         user_id                                              /**  El id del usuario que califica **/
     )
-    REFERENCES user (id)                                     /**  Relación con user **/
+    REFERENCES user (id)                                     /**  Relaciï¿½n con user **/
 );
 
 /**  --------------------------------------------------------------         **/
@@ -106,32 +107,32 @@ CREATE TABLE qualification (
 CREATE TABLE comment (
     id         INTEGER  NOT NULL
                         PRIMARY KEY AUTOINCREMENT,           /** Identificador del comentario llave primaria **/
-    type_id    INT,                                          /** Identificador del Tipo, si es para posts, imágenes etc. **/
-    ref_id     INT,                                          /** Identificador del del post, imagen o album según el caso **/
+    type_id    INT,                                          /** Identificador del Tipo, si es para posts, imï¿½genes etc. **/
+    ref_id     INT,                                          /** Identificador del del post, imagen o album segï¿½n el caso **/
     user_id    INT,                                          /** Identificador del usuario que crea el comentario **/
     content    TEXT,                                         /** Contenido del comentario **/
     comment_id INT,                                          /** Si es un comentario de otro comentario, se guarda el id del comentario superior **/
-    created_at DATETIME,                                     /** Fecha de creación del comentario **/
-    is_active  BOOLEAN,                                      /** Está activo el comentario o bloqueado  **/
+    created_at DATETIME,                                     /** Fecha de creaciï¿½n del comentario **/
+    is_active  BOOLEAN,                                      /** Estï¿½ activo el comentario o bloqueado  **/
     FOREIGN KEY (
         user_id                                              /** Identificador del user que comenta llave foreana **/
     )
     REFERENCES user (id),                                    /** Identificador del qualification llave primaria **/
     FOREIGN KEY (
-        ref_id                                               /** Fecha de creación llave foreana **/              
+        ref_id                                               /** Fecha de creaciï¿½n llave foreana **/              
     )
-    REFERENCES post (id)                                     /** realción del post **/
+    REFERENCES post (id)                                     /** realciï¿½n del post **/
 );
 
 /**  --------------------------------------------------------------         **/
 /* Tipo conversation  */
 CREATE TABLE conversation (
     id          INTEGER  NOT NULL
-                         PRIMARY KEY AUTOINCREMENT,           /** Identificador de la conversación llave primaria **/
-    sender_id   INT,                                          /** Identificador Usuario que envía la solicitud de amistad **/
+                         PRIMARY KEY AUTOINCREMENT,           /** Identificador de la conversaciï¿½n llave primaria **/
+    sender_id   INT,                                          /** Identificador Usuario que envï¿½a la solicitud de amistad **/
     receptor_id INT,                                          /** Identificador Usuario que recibe la solicitud **/
     created_at  DATETIME,                                     /** Fecha de creacion de la solicitud **/
-    is_active   BOOLEAN,                                      /** Está activa la conversación **/
+    is_active   BOOLEAN,                                      /** Estï¿½ activa la conversaciï¿½n **/
     FOREIGN KEY (
         sender_id                                             /** Identificador del comentario llave primaria **/
     )
@@ -148,18 +149,18 @@ CREATE TABLE message (
     id              INTEGER  NOT NULL
                              PRIMARY KEY AUTOINCREMENT,       /** Identificador del la message llave primaria **/
     content         TEXT,                                     /** Contenido del mensaje **/
-    user_id         INT,                                      /** Usuario que envía el mensaje **/
-    conversation_id INT,                                      /**  Id de la conversación **/
-    created_at      DATETIME,                                 /** Fecha de creación del mensaje **/
-    is_readed       BOOLEAN  DEFAULT 0,                       /** Si el mensaje ya fue leído por el otro usuario **/
+    user_id         INT,                                      /** Usuario que envï¿½a el mensaje **/
+    conversation_id INT,                                      /**  Id de la conversaciï¿½n **/
+    created_at      DATETIME,                                 /** Fecha de creaciï¿½n del mensaje **/
+    is_readed       BOOLEAN  DEFAULT 0,                       /** Si el mensaje ya fue leï¿½do por el otro usuario **/
     FOREIGN KEY (
         user_id                                               /** Identificador del usuario **/
     )
     REFERENCES user (id),                                     /** Identificador user **/
     FOREIGN KEY (
-        conversation_id                                       /** Identificador de la conversación llave foreana **/
+        conversation_id                                       /** Identificador de la conversaciï¿½n llave foreana **/
     )
-    REFERENCES conversation (id)                              /** Referencia id conversación **/
+    REFERENCES conversation (id)                              /** Referencia id conversaciï¿½n **/
 );
 
 /**  --------------------------------------------------------------         **/
@@ -167,13 +168,13 @@ CREATE TABLE message (
 CREATE TABLE notification (
     id          INTEGER  NOT NULL 
                          PRIMARY KEY AUTOINCREMENT,           /** Identificador del la message llave primaria **/
-    ref_id      INT,                                          /** Id del contenido que activa la notificación **/
-    receptor_id INT,                                          /** Usuario que va a recibir la notificación **/
-    sender_id   INT,                                          /** Usuario que activa la notificación **/
-    is_readed   BOOLEAN  DEFAULT 0,                           /** Si ya fue leída la notificación **/
-    created_at  DATETIME,                                     /** Fecha de creación de la notificación **/
+    ref_id      INT,                                          /** Id del contenido que activa la notificaciï¿½n **/
+    receptor_id INT,                                          /** Usuario que va a recibir la notificaciï¿½n **/
+    sender_id   INT,                                          /** Usuario que activa la notificaciï¿½n **/
+    is_readed   BOOLEAN  DEFAULT 0,                           /** Si ya fue leï¿½da la notificaciï¿½n **/
+    created_at  DATETIME,                                     /** Fecha de creaciï¿½n de la notificaciï¿½n **/
     FOREIGN KEY (
-        sender_id                                             /** Identificador Usuario que activa o envia la notificación para llave foreana **/
+        sender_id                                             /** Identificador Usuario que activa o envia la notificaciï¿½n para llave foreana **/
     )
     REFERENCES user (id),                                     /** Identificador Usuario **/
     FOREIGN KEY (
@@ -191,7 +192,7 @@ CREATE TABLE profile (
     comment    BOOLEAN  DEFAULT (0),                          /** Activar desactivar comentarios **/
     messaje    BOOLEAN  DEFAULT (0),                          /** Activar desactivar mensajes **/
     user_id    INT,                                           /** Identificador user **/
-    created_at DATETIME,                                      /** fecha de creación de perfiles **/
+    created_at DATETIME,                                      /** fecha de creaciï¿½n de perfiles **/
     FOREIGN KEY (
         user_id                                               /** Identificador Usuario llave foreana **/
     )
