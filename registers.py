@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, url_for, flash, redirect, Request
-import yagmail
 import utils
 import os
 import random
