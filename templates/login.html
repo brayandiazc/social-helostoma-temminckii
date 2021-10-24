@@ -6,12 +6,6 @@
 <!--block content-->
 {% block content %}
 <!--block content-->
-  {% for message in get_flashed_messages() %}
-  <div class="notification is-success is-light has-text-centered">
-    <button class="delete"></button>
-    {{message}}
-  </div>
-  {%endfor%}
 <form   class="box"
     action="{{url_for('ingreso')}}"
     id="formLogin"

@@ -18,6 +18,12 @@
     <header>
       {% include 'navbar.html' %}
     <header>
+    {% for message in get_flashed_messages() %}
+      <div class="notification is-success is-light has-text-centered">
+        <button class="delete"></button>
+        {{message}}
+      </div>
+    {%endfor%}
     <main>
       {% block content %}{% endblock content %}
     </main>
