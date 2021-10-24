@@ -1,12 +1,21 @@
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
-      <a class="navbar-item" href="{{ url_for('index') }}">
-        <img
-          src="{{ url_for('static', filename='images/logo.svg')}}"
-          height="28"
-        />
-      </a>
+      {% if sesion_iniciada==True %}
+        <a class="navbar-item" href="{{ url_for('publicacion') }}">
+          <img
+            src="{{ url_for('static', filename='images/logo.svg')}}"
+            height="28"
+          />
+        </a>
+      {% else %}
+        <a class="navbar-item" href="{{ url_for('index') }}">
+          <img
+            src="{{ url_for('static', filename='images/logo.svg')}}"
+            height="28"
+          />
+        </a>
+      {% endif %}
 
       <a
         role="button"
@@ -33,9 +42,9 @@
           Mensajes privados
         </a>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link"> Username </a>
+          <a class="navbar-link"> {{ session["user"] }} </a>
 
-          <div class="navbar-dropdown">
+          <div class="navbar-dropdown is-right">
             <a href="{{ url_for('perfil') }}" class="navbar-item">
               Mi perfil
             </a>
