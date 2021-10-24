@@ -180,7 +180,7 @@ def ingreso_get():
                 print(os.error)
         else:
             flash("Usuario no registrado en la aplicación")
-            return render_template("register.html", form=form)               
+            return render_template("login.html", form=form)               
 
 
 # Salir ----------------------
