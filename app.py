@@ -272,6 +272,12 @@ def superadmin_informacion(id_superadmin):
     else:
         return f"Error, el usuario {id_superadmin} no exite en la base de datos"
 
+# Publicacion nueva --------------
+@app.route("/publicacion_new",methods=["GET","POST"])
+def publicacion_new():
+    global sesion_iniciada
+    return render_template("publicacion_new.html", sesion_iniciada=sesion_iniciada)
+
 # Publicaciones --------------
 @app.route("/publicaciones",methods=["GET","POST"])
 def publicacion():
@@ -380,4 +386,5 @@ def encriptar():
 
 if __name__=='__main__':
     app.run(debug=True, port=8081)
+    
     

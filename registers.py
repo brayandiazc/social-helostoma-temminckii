@@ -62,7 +62,7 @@ def sql_get_user(usuario):
                 cur.execute("SELECT username FROM user WHERE username = ?", [usuario])
                 row = cur.fetchone()
                 if row is None:
-                    flash("Usuario no se encuentra en la BD.")
+                    # flash("Usuario no se encuentra en la BD.")
                     return False
                 else:
                     return True    
@@ -79,7 +79,7 @@ def sql_get_email(correo):
                 cur.execute("SELECT email FROM user WHERE email = ?", [correo])
                 row = cur.fetchone()
                 if row is None:
-                    flash("El correo no se encuentra en la BD.")
+                    # flash("El correo no se encuentra en la BD.")
                     return False
                 else:
                     return True    
@@ -96,7 +96,7 @@ def sql_get_user_info(usuario):
                 cur.execute("SELECT * FROM user WHERE username = ?", [usuario])
                 row = cur.fetchone()
                 if row is None:
-                    flash("El usuario no se encuentra en la BD.")
+                    # flash("El usuario no se encuentra en la BD.")
                     return row
                 else:
                     return row    
