@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, url_for, flash, redirect, Request, session
-import yagmail
 from settings import config
 import utils
 import os
@@ -377,57 +376,8 @@ def encriptar():
         except Error:
             return render_template("register.html", form=form) 
         #Metodo de envio de correo.             
-       
-
     return "No metodo POST"
 
-
-'''@app.route("/register" , methods=["GET","POST"])
-def register():
-    global sesion_iniciada
-    try:
-        if request.method=="POST":
-            user1=request.form["username"]
-            pass1=request.form["password"]
-            c_pass1=request.form["c_password"]
-            email=request.form["correo"]
-            error = None
-
-            if not utils.isUsernameValid(user1):
-                error ="El usuario no es correcto"
-                flash(error)
-                return render_template("register.html")
-
-            if not utils.isPasswordValid(pass1):
-                error="Password invalido"
-                flash(error)
-                return render_template("register.html")
-
-            if not utils.isPasswordValid(c_pass1):
-                error="Password invalido"
-                flash(error)
-                return render_template("register.html")
-
-            if (c_pass1 !=pass1):
-                error="Password no coincide"
-                flash(error)
-                return render_template("register.html")
-
-            if not utils.isEmailValid(email):
-                error="Correo invalido"
-                flash(error)
-                return render_template("register.html")
-
-            yag=yagmail.SMTP("pruebamintic2022","Jmd12345678")
-            print("Paso por yag.")
-            yag.send(to=email, subject="Activa tu cuenta", contents="Bienvenido, usa este link para activar tu cuenta")
-            flash("Revisa tu correo para activar tu cuenta")
-            return render_template("login.html")
-
-        return render_template("register.html")
-    except:
-        return render_template("register.html")
-'''
 if __name__=='__main__':
     app.run(debug=True, port=8081)
     
