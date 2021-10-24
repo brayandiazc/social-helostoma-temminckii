@@ -12,7 +12,6 @@
   id="formRegister"
   method="post"
   name="formRegister"
-  
 >
   {{ form.hidden_tag() }}
   <h2 class="title has-text-centered">Registro</h2>
@@ -54,7 +53,7 @@
   </div>
 
   <div class="field">
-    <label for="password" class="label">Contraseña</label>    
+    <label for="password" class="label">Contraseña</label>
     <div class="control">
       <!--<input
         class="input"
@@ -69,7 +68,7 @@
     </div>
   </div>
   <div class="field">
-    <label for="c_password" class="label">Confirmar contraseña</label>  
+    <label for="c_password" class="label">Confirmar contraseña</label>
     <div class="control">
       <!--<input
         class="input"
@@ -80,16 +79,14 @@
         required="true"
         minlength="6"
       /> -->
-      {{ form.clave1(size=20) }} 
+      {{ form.clave1(size=20) }}
     </div>
   </div>
   <div class="field">
     <label class="checkbox" for="condiciones">
       <!--<input type="checkbox" name="condiciones" required="true" /> -->
 
-      {{ form.estado() }}
-      
-      Aceptas <a href="#">terminos y condiciones</a>
+      {{ form.estado() }} Aceptas <a href="#">terminos y condiciones</a>
     </label>
   </div>
   <div class="field">

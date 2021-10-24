@@ -22,10 +22,10 @@
           <div class="columns">
             <div class="column is-three-fifths is-offset-one-fifth">
               {% for message in get_flashed_messages() %}
-                <div class="notification is-success is-light has-text-centered">
-                  <button class="delete"></button>
-                  {{message}}
-                </div>
+              <div class="notification is-success is-light has-text-centered">
+                <button class="delete"></button>
+                {{message}}
+              </div>
               {%endfor%}
               <main>{% block content %}{% endblock content %}</main>
             </div>
@@ -34,6 +34,6 @@
       </div>
     </section>
     <script src=" {{url_for('static', filename='js/funciones.js')}} "></script>
-    <script src=" {{url_for('static', filename='js/validacion.js')}} "></script>    
+    <script src=" {{url_for('static', filename='js/validacion.js')}} "></script>
   </body>
 </html>

@@ -12,7 +12,9 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li><a href="{{ url_for('publicacion') }}">Publicaciones</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Publicacion nueva</a></li>
+            <li class="is-active">
+              <a href="#" aria-current="page">Publicacion nueva</a>
+            </li>
           </ul>
         </nav>
 
@@ -33,7 +35,12 @@
             <div class="control">
               <div id="file-js-example" class="file has-name">
                 <label class="file-label">
-                  <input class="file-input" type="file" name="resume" accept="image/*" />
+                  <input
+                    class="file-input"
+                    type="file"
+                    name="resume"
+                    accept="image/*"
+                  />
                   <span class="file-cta">
                     <span class="file-label"> Buscar imagen… </span>
                   </span>
@@ -65,12 +72,12 @@
 </section>
 
 <script>
-  const fileInput = document.querySelector('#file-js-example input[type=file]');
+  const fileInput = document.querySelector("#file-js-example input[type=file]");
   fileInput.onchange = () => {
     if (fileInput.files.length > 0) {
-      const fileName = document.querySelector('#file-js-example .file-name');
+      const fileName = document.querySelector("#file-js-example .file-name");
       fileName.textContent = fileInput.files[0].name;
     }
-  }
+  };
 </script>
 {% endblock content %}
