@@ -35,11 +35,16 @@
 
       <div class="navbar-end">
         {% if sesion_iniciada==True %}
-        <a href="{{ url_for('publicacion') }}" class="navbar-item">
-          Publicaciones
-        </a>
+        <div class="navbar-item">
+          <a href="{{ url_for('publicacion_new') }}" class="button is-link is-rounded">
+            Publica
+          </a>
+        </div>
         <a href="{{ url_for('msg') }}" class="navbar-item">
-          Mensajes privados
+          Mensajes
+        </a>
+        <a href="{{ url_for('busqueda') }}" class="navbar-item">
+          Conectar
         </a>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link"> {{ session["user"] }} </a>
@@ -51,9 +56,6 @@
             <a href="{{ url_for('perfil_edit') }}" class="navbar-item">
               Editar perfil
             </a>
-            <a href="{{ url_for('busqueda') }}" class="navbar-item">
-              Busqueda Usuario
-            </a>            
             <hr class="navbar-divider" />
             <a class="navbar-item" href="{{ url_for('salir') }}">
               Cerrar sesion
