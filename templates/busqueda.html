@@ -32,12 +32,13 @@
 </form>
 
 
-{% for row in row_info %}
+
 <section class="section">
+  
   <div class="container">
-
+    
     <div class="columns is-multiline has-text-centered">
-
+      {% for row in row_info %}
       
       <div class="column is-6-tablet is-3-desktop">
         <div class="box has-background-white">
@@ -62,10 +63,11 @@
         </div>
       </div>
   
-
+      {% endfor %}
     </div>
-    
+   
   </div>
+  
 </section>
-{% endfor %}
+
 {% endblock content %}

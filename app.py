@@ -306,9 +306,12 @@ def detalle_pub(id_publicacion):
 def busqueda():
     form=formSearch()
     if "user" in session:   
-        #row_info=sql_get_user_search_all()       
-        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)  
-        return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
+        row_info=sql_get_user_search_all()    
+        for row in row_info:
+            print(row["username"])
+
+        return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)  
+        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
     else:
         flash("El usuario debe iniciar sesión.")
         return render_template("index.html", sesion_iniciada=sesion_iniciada)
