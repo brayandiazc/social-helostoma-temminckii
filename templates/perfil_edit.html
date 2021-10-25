@@ -9,117 +9,131 @@
   <div class="container">
     <div class="culumns">
       <div class="column is-8 is-offset-2">
-        <form class="box"   class="box"
-              action="{{url_for('perfil_edit')}}"
-              id="formEditProfile"
-              method="post"
-              name="formEditProfile">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+          <ul>
+            <li><a href="{{ url_for('perfil') }}">username</a></li>
+            <li class="is-active">
+              <a href="#" aria-current="page">Editar perfil</a>
+            </li>
+          </ul>
+        </nav>
+
+        <form
+          class="box"
+          class="box"
+          action="{{url_for('perfil_edit')}}"
+          id="formEditProfile"
+          method="post"
+          name="formEditProfile"
+        >
           <h1 class="title">Editar perfil de usuario</h1>
-          <div class="field">
-            <label class="label" for="username">Nombre de usuario</label>
-            <div class="control">
-              <!--<input
-                class="input"
-                type="text"
-                id="username"
-                name="username"
-                autocomplete="username"
-                required="true"
-                placeholder="pepitoperez"
-              /> -->
-              {{ form.usuario(value=row_info["username"]) }} 
-            </div>
-          </div>         
-          <div class="field">
-            <label class="label" for="name">Nombre</label>
-            <div class="control">
-              <!--<input
-                class="input"
-                type="text"
-                id="name"
-                name="name"
-                autocomplete="name"
-                required="true"
-                placeholder="Nicolás"
-              /> -->
-              {{ form.nombre(value=row_info["name"]) }}
-            </div>
-          </div>
-          <div class="field">
-            <label class="label" for="lastname">Apellido</label>
-            <div class="control">
-              <!--<input
-                class="input"
-                type="text"
-                id="lastname"
-                name="lastname"
-                autocomplete="lastname"
-                required="true"
-                placeholder="Montes de Oca"
-              /> -->
-              {{ form.apellido(value=row_info["lastname"]) }}
-            </div>
-          </div>
-          <div class="field">
-            <label for="email" class="label">Email</label>
-        
-            <div class="control">
-              <!--<input
-                class="input"
-                type="text"
-                id="email"
-                name="email"
-                maxlength="100"
-                placeholder="e.g. alex@example.com"
-                autocomplete="email"
-                required="true"
-                pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
-                style="text-transform: lowercase"
-                onkeyup="javascript:this.value=this.value.toLowerCase();"
-              /> -->
-              {{ form.correo(value=row_info["email"]) }}
-            </div>
-          </div>
-        
-          <div class="field">
-            <label for="password" class="label">Contraseña</label>    
-            <div class="control">
-              <!--<input
-                class="input"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Contraseña"
-                required="true"
-                minlength="6"
-              /> -->
-              {{ form.clave(value=row_info["password"]) }}
-            </div>
-          </div>
 
-          <div class="field">
-            <label class="label">Fecha de nacimiento</label>
-            <div class="control">
-              <!--<input
-                class="input"
-                type="date"
-                placeholder="Fecha de nacimiento"
-              /> -->
-
-                {{ form.bd(value=row_info["bd"]) }}
-
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Genero</label>
-            <div class="control">
-              <div class="select">
-                <!--<select>
-                  <option>Masculino</option>
-                  <option>Femenino</option>
-                </select> -->
-                {{ form.genero(value=row_info["gender"]) }}
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="container">
+                <div class="columns is-multiline">
+                  <div class="column is-6">
+                    <div class="field">
+                      <label class="label" for="username">Nombre de usuario</label>
+                      <div class="control">
+                        <!--<input
+                          class="input"
+                          type="text"
+                          id="username"
+                          name="username"
+                          autocomplete="username"
+                          required="true"
+                          placeholder="pepitoperez"
+                        /> -->
+                        {{ form.usuario(value=row_info["username"]) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-6">
+                    <div class="field">
+                      <label for="email" class="label">Email</label>
+          
+                      <div class="control">
+                        <!--<input
+                          class="input"
+                          type="text"
+                          id="email"
+                          name="email"
+                          maxlength="100"
+                          placeholder="e.g. alex@example.com"
+                          autocomplete="email"
+                          required="true"
+                          pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                          style="text-transform: lowercase"
+                          onkeyup="javascript:this.value=this.value.toLowerCase();"
+                        /> -->
+                        {{ form.correo(value=row_info["email"]) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-6">
+                    <div class="field">
+                      <label class="label" for="name">Nombre</label>
+                      <div class="control">
+                        <!--<input
+                          class="input"
+                          type="text"
+                          id="name"
+                          name="name"
+                          autocomplete="name"
+                          required="true"
+                          placeholder="Nicolás"
+                        /> -->
+                        {{ form.nombre(value=row_info["name"]) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-6">
+                    <div class="field">
+                      <label class="label" for="lastname">Apellido</label>
+                      <div class="control">
+                        <!--<input
+                          class="input"
+                          type="text"
+                          id="lastname"
+                          name="lastname"
+                          autocomplete="lastname"
+                          required="true"
+                          placeholder="Montes de Oca"
+                        /> -->
+                        {{ form.apellido(value=row_info["lastname"]) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-6">
+                    <div class="field">
+                      <label class="label">Fecha de nacimiento</label>
+                      <div class="control">
+                        <!--<input
+                          class="input"
+                          type="date"
+                          placeholder="Fecha de nacimiento"
+                        /> -->
+          
+                        {{ form.bd(value=row_info["bd"]) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-6">
+                    <div class="field">
+                      <label class="label">Genero</label>
+                      <div class="control">
+                        <div class="select is-fullwidth">
+                          <!--<select>
+                            <option>Masculino</option>
+                            <option>Femenino</option>
+                          </select> -->
+                          {{ form.genero(value=row_info["gender"]) }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -132,6 +146,24 @@
             </div>
           </div>
 
+          <div class="field">
+            <label for="password" class="label">Contraseña</label>
+            <div class="control">
+              <!--<input
+                class="input"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Contraseña"
+                required="true"
+                minlength="6"
+              /> -->
+              {{ form.clave(value=row_info["password"]) }}
+            </div>
+            <p class="help is-danger">Escribe tu Contraseña para actualizar tu perfil</p>
+          </div>
+
+          <hr>
           <div class="field is-grouped">
             <div class="control">
               <!--<button class="button is-link">Submit</button> -->

@@ -7,84 +7,43 @@
 {% block content %}
 <section class="section">
   <div class="container">
-    <div class="columns">
-      <div class="column is-7">
-        {% for key, publicacion in lista_publicaciones.items() %}
-        <div class="card">
+    <h2 class="title has-text-centered">Publicaciones</h2>
+    <div class="columns is-multiline">
+      {% for key, publicacion in lista_publicaciones.items() %}
+      <div class="column is-6-tablet is-3-desktop">
+        <div class="card" style="height: 100%">
           <div class="card-image">
-            <figure class="image is-2by1">
-              <a href="{{ url_for('detalle_pub',id_publicacion=key) }}">
-                <img
-                  src="http://lorempixel.com/1280/960/sports"
-                  alt="Placeholder image"
-              /></a>
-            </figure>
+            <a href="{{ url_for('detalle_pub',id_publicacion=key) }}"
+              ><img src="http://lorempixel.com/1280/960/sports" alt=""
+            /></a>
           </div>
           <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img
-                    src="http://lorempixel.com/96/96/people"
-                    alt="Placeholder image"
-                    class="is-rounded"
-                  />
-                </figure>
-              </div>
-              <div class="media-content">
-                <a href="{{ url_for('detalle_pub',id_publicacion=key) }}">
-                  <p class="title is-4">{{ publicacion.titulo }}</p></a
+            <div class="block">
+              <small class="is-size-7"
+                >24 octubre 2021 | {{ "@" + (publicacion.id_usuario) }}</small
+              >
+            </div>
+            <h5 class="title is-6">
+              <a href="{{ url_for('detalle_pub',id_publicacion=key) }}"
+                >{{ publicacion.titulo }}</a
+              >
+            </h5>
+            <p>{{ publicacion.contenido | truncate(150) }}</p>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a
+                  href="{{ url_for('detalle_pub',id_publicacion=key) }}"
+                  class="level-item"
+                  aria-label="reply"
                 >
-                <p class="subtitle is-6">
-                  username {{ publicacion.id_usuario }}
-                </p>
+                  <span class="small"> # Comentarios </span>
+                </a>
               </div>
-            </div>
-
-            <div class="content">
-              {{ publicacion.contenido }}
-              <p class="subtitle is-6">
-                Calificación: {{ publicacion.calificacion_id }}
-                <img
-                  src="{{ url_for('static', filename='images/favicon.png') }}"
-                  alt="Placeholder image"
-                  width="24px"
-                  style="vertical-align: bottom"
-                />
-              </p>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </div>
-        </div>
-        <br />
-        {%endfor%}
-      </div>
-      <div class="column is-offset-1 is-4 has-text-centered">
-        <div class="card">
-          <div class="card-content">
-            <div class="content">
-              <div class="level">
-                <div class="level-item">
-                  <figure class="image is-128x128">
-                    <img
-                      class="is-rounded"
-                      src="http://lorempixel.com/96/96/people"
-                      alt=""
-                    />
-                  </figure>
-                </div>
-              </div>
-              <h5 class="title is-5">Richard Hendricks</h5>
-              <p class="subtitle is-6">username</p>
-              <p>
-                When I'm not obsessively stressing about the fate of Pied Piper,
-                I sometimes give lectures to school kids. Spend most of my time
-                coding.
-              </p>
-            </div>
+            </nav>
           </div>
         </div>
       </div>
+      {%endfor%}
     </div>
   </div>
 </section>

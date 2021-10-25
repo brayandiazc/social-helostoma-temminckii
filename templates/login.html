@@ -6,12 +6,13 @@
 <!--block content-->
 {% block content %}
 <!--block content-->
-<form   class="box"
-    action="{{url_for('ingreso')}}"
-    id="formLogin"
-    method="post"
-    name="formLogin">
-
+<form
+  class="box"
+  action="{{url_for('ingreso')}}"
+  id="formLogin"
+  method="post"
+  name="formLogin"
+>
   <h2 class="title has-text-centered">Inicia sesion</h2>
   {{ csrf_token }}
   <div class="field">
@@ -49,7 +50,7 @@
     </div>
   </div>
   <div class="field">
-   <!-- <button class="button is-link is-fullwidth">Inicia sesion!</button>
+    <!-- <button class="button is-link is-fullwidth">Inicia sesion!</button>
     {% if cadena!="" %}
     <a
       center

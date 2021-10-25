@@ -2,19 +2,19 @@
   <div class="container">
     <div class="navbar-brand">
       {% if sesion_iniciada==True %}
-        <a class="navbar-item" href="{{ url_for('publicacion') }}">
-          <img
-            src="{{ url_for('static', filename='images/logo.svg')}}"
-            height="28"
-          />
-        </a>
+      <a class="navbar-item" href="{{ url_for('publicacion') }}">
+        <img
+          src="{{ url_for('static', filename='images/logo.svg')}}"
+          height="28"
+        />
+      </a>
       {% else %}
-        <a class="navbar-item" href="{{ url_for('index') }}">
-          <img
-            src="{{ url_for('static', filename='images/logo.svg')}}"
-            height="28"
-          />
-        </a>
+      <a class="navbar-item" href="{{ url_for('index') }}">
+        <img
+          src="{{ url_for('static', filename='images/logo.svg')}}"
+          height="28"
+        />
+      </a>
       {% endif %}
 
       <a
@@ -35,12 +35,16 @@
 
       <div class="navbar-end">
         {% if sesion_iniciada==True %}
-        <a href="{{ url_for('publicacion') }}" class="navbar-item">
-          Publicaciones
-        </a>
-        <a href="{{ url_for('msg') }}" class="navbar-item">
-          Mensajes privados
-        </a>
+        <div class="navbar-item">
+          <a
+            href="{{ url_for('publicacion_new') }}"
+            class="button is-link is-rounded"
+          >
+            Publica
+          </a>
+        </div>
+        <a href="{{ url_for('msg') }}" class="navbar-item"> Mensajes </a>
+        <a href="{{ url_for('busqueda') }}" class="navbar-item"> Conectar </a>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link"> {{ session["user"] }} </a>
 
@@ -51,17 +55,14 @@
             <a href="{{ url_for('perfil_edit') }}" class="navbar-item">
               Editar perfil
             </a>
-            <a href="{{ url_for('busqueda') }}" class="navbar-item">
-              Busqueda Usuario
-            </a>            
             <hr class="navbar-divider" />
             <a class="navbar-item" href="{{ url_for('salir') }}">
               Cerrar sesion
             </a>
           </div>
-          </div>
         </div>
-        <div>
+      </div>
+      <div>
         {% else %}
         <div class="navbar-item">
           <div class="buttons">
