@@ -5,26 +5,40 @@
 
 <!--block content-->
 {% block content %}
+
+<form
+  class="box"
+  action="{{url_for('busqueda')}}"
+  id="formSearch"
+  method="post"
+  name="formSearch" 
+>
+  {{ form.hidden_tag() }}
 <section class="section">
   <div class="container">
     <div class="field has-addons">
       <p class="control"></p>
       <p class="control is-expanded">
-        <input
-          class="input is-medium"
-          type="text"
-          placeholder="Busqueda de usuarios"
-        />
+      <!--<input class="input is-medium" type="text" placeholder="Buscar amig@s" />     --> 
+      {{ form.usuario() }}        
       </p>
       <p class="control">
-        <a class="button is-info is-medium"> Buscar usuarios </a>
+      <!--<a class="button is-info is-medium"> Buscar </a>            <!-- boton       -->
+      {{ form.enviar() }}
       </p>
     </div>
   </div>
 </section>
+</form>
+
+
+{% for row in row_info %}
 <section class="section">
   <div class="container">
+
     <div class="columns is-multiline has-text-centered">
+
+      
       <div class="column is-6-tablet is-3-desktop">
         <div class="box has-background-white">
           <div class="has-text-centered mb-4">
@@ -37,187 +51,21 @@
             </a>
           </div>
           <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">Patrick Sebastien</p>
+            <p class="is-size-4 has-text-grey-dark">{{ row["NAME_COMPLETE"] }}</p>
             <p class="is-size-5 has-text-grey has-text-weight-light">
-              Developpeur
+              {{ row["username"] }}
             </p>
             <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              Patrick Sébastien, born November 14, 1953 in Brive-la-Gaillarde,
-              is an imitator, humorist, actor, director, singer, songwriter,
-              poet, writer
+              {{ row["likes"] }}
             </p>
           </div>
         </div>
       </div>
-      <div class="column is-6-tablet is-3-desktop">
-        <div class="box has-background-white">
-          <div class="has-text-centered mb-4">
-            <a href="#" class="image is-48x48 m-auto">
-              <img
-                alt="profil"
-                src="http://lorempixel.com/256/256/people"
-                class="is-rounded"
-              />
-            </a>
-          </div>
-          <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">Patrick Sebastien</p>
-            <p class="is-size-5 has-text-grey has-text-weight-light">
-              Developpeur
-            </p>
-            <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              Patrick Sébastien, born November 14, 1953 in Brive-la-Gaillarde,
-              is an imitator, humorist, actor, director, singer, songwriter,
-              poet, writer
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="column is-6-tablet is-3-desktop">
-        <div class="box has-background-white">
-          <div class="has-text-centered mb-4">
-            <a href="#" class="image is-48x48 m-auto">
-              <img
-                alt="profil"
-                src="http://lorempixel.com/256/256/people"
-                class="is-rounded"
-              />
-            </a>
-          </div>
-          <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">Patrick Sebastien</p>
-            <p class="is-size-5 has-text-grey has-text-weight-light">
-              Developpeur
-            </p>
-            <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              Patrick Sébastien, born November 14, 1953 in Brive-la-Gaillarde,
-              is an imitator, humorist, actor, director, singer, songwriter,
-              poet, writer
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="column is-6-tablet is-3-desktop">
-        <div class="box has-background-white">
-          <div class="has-text-centered mb-4">
-            <a href="#" class="image is-48x48 m-auto">
-              <img
-                alt="profil"
-                src="http://lorempixel.com/256/256/people"
-                class="is-rounded"
-              />
-            </a>
-          </div>
-          <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">Patrick Sebastien</p>
-            <p class="is-size-5 has-text-grey has-text-weight-light">
-              Developpeur
-            </p>
-            <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              Patrick Sébastien, born November 14, 1953 in Brive-la-Gaillarde,
-              is an imitator, humorist, actor, director, singer, songwriter,
-              poet, writer
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="column is-6-tablet is-3-desktop">
-        <div class="box has-background-white">
-          <div class="has-text-centered mb-4">
-            <a href="#" class="image is-48x48 m-auto">
-              <img
-                alt="profil"
-                src="http://lorempixel.com/256/256/people"
-                class="is-rounded"
-              />
-            </a>
-          </div>
-          <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">Patrick Sebastien</p>
-            <p class="is-size-5 has-text-grey has-text-weight-light">
-              Developpeur
-            </p>
-            <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              Patrick Sébastien, born November 14, 1953 in Brive-la-Gaillarde,
-              is an imitator, humorist, actor, director, singer, songwriter,
-              poet, writer
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="column is-6-tablet is-3-desktop">
-        <div class="box has-background-white">
-          <div class="has-text-centered mb-4">
-            <a href="#" class="image is-48x48 m-auto">
-              <img
-                alt="profil"
-                src="http://lorempixel.com/256/256/people"
-                class="is-rounded"
-              />
-            </a>
-          </div>
-          <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">Patrick Sebastien</p>
-            <p class="is-size-5 has-text-grey has-text-weight-light">
-              Developpeur
-            </p>
-            <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              Patrick Sébastien, born November 14, 1953 in Brive-la-Gaillarde,
-              is an imitator, humorist, actor, director, singer, songwriter,
-              poet, writer
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="column is-6-tablet is-3-desktop">
-        <div class="box has-background-white">
-          <div class="has-text-centered mb-4">
-            <a href="#" class="image is-48x48 m-auto">
-              <img
-                alt="profil"
-                src="http://lorempixel.com/256/256/people"
-                class="is-rounded"
-              />
-            </a>
-          </div>
-          <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">Patrick Sebastien</p>
-            <p class="is-size-5 has-text-grey has-text-weight-light">
-              Developpeur
-            </p>
-            <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              Patrick Sébastien, born November 14, 1953 in Brive-la-Gaillarde,
-              is an imitator, humorist, actor, director, singer, songwriter,
-              poet, writer
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="column is-6-tablet is-3-desktop">
-        <div class="box has-background-white">
-          <div class="has-text-centered mb-4">
-            <a href="#" class="image is-48x48 m-auto">
-              <img
-                alt="profil"
-                src="http://lorempixel.com/256/256/people"
-                class="is-rounded"
-              />
-            </a>
-          </div>
-          <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">Patrick Sebastien</p>
-            <p class="is-size-5 has-text-grey has-text-weight-light">
-              Developpeur
-            </p>
-            <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              Patrick Sébastien, born November 14, 1953 in Brive-la-Gaillarde,
-              is an imitator, humorist, actor, director, singer, songwriter,
-              poet, writer
-            </p>
-          </div>
-        </div>
-      </div>
+  
+
     </div>
+    
   </div>
 </section>
+{% endfor %}
 {% endblock content %}
