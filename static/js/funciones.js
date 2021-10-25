@@ -56,3 +56,8 @@ function actualizar_register(){
 function ir_register(){
     document.getElementById("formEditProfile").action="/perfil_edit/"
 }
+
+
+function adicionar_publicacion(){
+    document.getElementById("PhotoForm").action="/publicacion_new/save"
+}

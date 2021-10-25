@@ -10,10 +10,11 @@ from datetime import date
 # En tu programa que utiliza el paquete package
 #from settings import create_connection
 from settings.config import create_connection
-from forms import formEditProfile, formRegister, formLogin, formSearch
+from forms import formEditProfile, formRegister, formLogin, formSearch, PhotoForm
 from registers import * #register, sql_insert_user,sql_get_user
 from login import *
 from search import*
+from post import *
 
 
 from markupsafe import escape #Cambia lo ingresado en el formulario a texto
@@ -21,6 +22,9 @@ from markupsafe import escape #Cambia lo ingresado en el formulario a texto
 import hashlib #Criptografia
 from werkzeug.security import generate_password_hash 
 from werkzeug.security import check_password_hash
+
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
 
 
 
@@ -162,13 +166,15 @@ def ingreso_get():
                 usuario=row_info["username"]
                 nombre=row_info["name"]
                 apellido=row_info["lastname"]
-                tipo=row_info["id_type"]                
+                tipo=row_info["id_type"]    
+                id_user= row_info["id"]              
                 if (sql_get_pwd_login(correo, clave)==True):
                     print(row_info["username"])
                     session["user"]=usuario
                     session["id_type"]=tipo
                     session["name"]=nombre
                     session["lastname"]=apellido  
+                    session["id"]=id_user  
                     sesion_iniciada=True
 
                     form=formLogin()
@@ -277,7 +283,51 @@ def superadmin_informacion(id_superadmin):
 @app.route("/publicacion_new",methods=["GET","POST"])
 def publicacion_new():
     global sesion_iniciada
-    return render_template("publicacion_new.html", sesion_iniciada=sesion_iniciada)
+
+    form = PhotoForm()
+    #return render_template('upload.html', form=form)
+    return render_template("publicacion_new.html", sesion_iniciada=sesion_iniciada,form=form)
+
+@app.route("/publicacion_new/save",methods=["GET","POST"])
+def publicacion_new_save():
+    global sesion_iniciada
+
+    form = PhotoForm()
+    if "user" in session:  
+        if request.method == "POST":
+            print("Entro al validate")
+            f = form.photo.data
+            print(f)
+            filename = secure_filename(f.filename)
+            fuente=os.path.join(app.root_path, 'static\images', filename)
+            print(os.path.join(app.root_path, 'static\images', filename))
+            f.save(os.path.join(app.root_path, 'static\images', filename))
+
+            usuario_id=session["id"]
+            titulo=escape(form.titulo.data)
+            contenido=escape(form.contenido.data)
+            estado=1
+            creado=date.today()
+
+            src_img ="{{ url_for('static', filename='images/"+ filename +"')}}"
+
+            #insert a tabla Post
+            sql_insert_post(usuario_id, titulo,contenido,estado,creado)
+            #insert a tabla Image
+            sql_insert_img(usuario_id, src_img,filename,fuente,creado)
+            #insert a tabla Post_image
+            row_post=sql_get_post_id(usuario_id)
+            row_img=sql_get_image_id(usuario_id)
+            sql_insert_postimg(row_post["ID_MAX"], row_img["ID_MAX"])
+            
+            flash("Publicación Creada con Exito...")
+            return render_template("publicacion_new.html", sesion_iniciada=sesion_iniciada,form=form)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
+
+
+
 
 # Publicaciones --------------
 @app.route("/publicaciones",methods=["GET","POST"])

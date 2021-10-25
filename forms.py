@@ -4,7 +4,8 @@ from wtforms.validators import DataRequired, InputRequired, InputRequired
 from wtforms.fields.html5 import EmailField,DateField
 from wtforms.validators import Length, Email
 from wtforms.fields import TextAreaField
-
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
 
 
 
@@ -114,3 +115,16 @@ class  formLogin(FlaskForm):
 class  formSearch(FlaskForm):
     usuario = StringField('Usuario', validators=[DataRequired(message='No dejar vacio')], render_kw={'placeholder':'Datos de Busqueda', 'class':'input','type':'text', 'id':'search_user', 'autocomplete':'search_user', 'placeholder':'pepitoperez'} )
     enviar = SubmitField('Busqueda', render_kw={'onmouseover':'consultar_user()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Busqueda'} )
+
+
+
+
+class  PhotoForm(FlaskForm):
+    titulo = StringField('Título', validators=[DataRequired(message='No dejar vacio')], render_kw={'placeholder':'Título', 'class':'input','type':'text', 'id':'username', 'autocomplete':'titulo', 'required':'true', 'placeholder':'Título Publicación'} )
+    #url_img = StringField('Url Imagen', validators=[DataRequired(message='No dejar vacio')], render_kw={'placeholder':'Url Imagen', 'class':'input','type':'text', 'id':'username', 'autocomplete':'url_img', 'required':'true', 'placeholder':'Url Imagen'} )
+    photo = FileField(validators=[FileRequired()], render_kw={'class':'file-input', 'type':'file'})
+    contenido = TextAreaField('Contenido Publición', default='Contenido Publicación', render_kw={'class':'textarea'})
+    #como = StringField('Sobre mi', render_kw={'placeholder':'Sobre mi', 'class':'textarea'})    
+    guardar = SubmitField('Publicar', render_kw={'onmouseover':'adicionar_publicacion()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Publicar'} )    
+    cancelar = SubmitField('Cancelar', render_kw={'onmouseover':'ir_publicaciones()',  'class':'button is-link is-light', 'type':'submit', 'value':'Cancelar'} )    
+

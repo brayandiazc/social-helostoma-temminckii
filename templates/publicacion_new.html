@@ -18,7 +18,13 @@
           </ul>
         </nav>
 
-        <form action="" class="box">
+        <form   class="box"
+          action="{{url_for('publicacion_new')}}"
+          id="PhotoForm"
+          method="post"
+          name="PhotoForm"
+          enctype="multipart/form-data"
+        >
           <h1 class="title">Publicacion nueva</h1>
           <h2 class="subtitle">
             Crea geniales publicaciones y comparte tus imagenes
@@ -26,7 +32,8 @@
           <div class="field">
             <label class="label">Titulo</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Titulo" />
+              <!--<input class="input" type="text" placeholder="Titulo" />-->
+              {{ form.titulo() }}
             </div>
           </div>
 
@@ -35,12 +42,13 @@
             <div class="control">
               <div id="file-js-example" class="file has-name">
                 <label class="file-label">
-                  <input
+                  <!--<input
                     class="file-input"
                     type="file"
                     name="resume"
                     accept="image/*"
-                  />
+                  />-->
+                  {{ form.photo() }}
                   <span class="file-cta">
                     <span class="file-label"> Buscar imagen… </span>
                   </span>
@@ -53,16 +61,19 @@
           <div class="field">
             <label class="label">Contenido</label>
             <div class="control">
-              <textarea class="textarea" placeholder="Escribe..."></textarea>
+              <!--<textarea class="textarea" placeholder="Escribe..."></textarea>-->
+              {{ form.contenido() }}
             </div>
           </div>
 
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-link">Publicar</button>
+              <!--<button class="button is-link">Publicar</button>-->
+              {{ form.guardar() }}
             </div>
             <div class="control">
-              <button class="button is-link is-light">Cancelar</button>
+              <!--<button class="button is-link is-light">Cancelar</button>-->
+              {{ form.cancelar() }}
             </div>
           </div>
         </form>
