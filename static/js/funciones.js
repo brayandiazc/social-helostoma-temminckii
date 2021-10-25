@@ -36,6 +36,11 @@ function consultar_login(){
     document.getElementById("formLogin").action="/ingreso/get"
 }
 
+consultar_user
+function consultar_user(){
+    document.getElementById("formSearch").action="/busqueda/get"
+}
+
 function crear_register(){
     document.getElementById("formRegister").action="/register/save"
 }

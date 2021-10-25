@@ -10,9 +10,10 @@ from datetime import date
 # En tu programa que utiliza el paquete package
 #from settings import create_connection
 from settings.config import create_connection
-from forms import formEditProfile, formRegister, formLogin
+from forms import formEditProfile, formRegister, formLogin, formSearch
 from registers import * #register, sql_insert_user,sql_get_user
 from login import *
+from search import*
 
 
 from markupsafe import escape #Cambia lo ingresado en el formulario a texto
@@ -301,9 +302,42 @@ def detalle_pub(id_publicacion):
         #return f"Pagina detalle de la publicacion {id_publicacion}"  #detalla_pub.html
 
 # Busqueda de usuario ---------------------------
-@app.route("/busqueda/",methods=["GET","POST"])
+@app.route("/busqueda/",methods=["GET"])
 def busqueda():
-        return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
+    form=formSearch()
+    if "user" in session:   
+        row_info=sql_get_user_search_all()    
+        for row in row_info:
+            print(row["username"])
+
+        return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)  
+        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
+
+# Busqueda de usuario ---------------------------
+@app.route("/busqueda/get",methods=["GET","POST"])
+def busqueda_get():
+
+    form=formSearch()
+    data_search=escape(form.usuario.data)
+
+    if "user" in session:  
+        row_info=sql_get_user_search(data_search)
+        if row_info is None:
+           #return "Elemento no encontrado" 
+           return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)    
+        else:
+            #return "Exito en Busqueda"
+            return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)   
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)    
+
+
+        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
+
 
 
 # Busqueda de usuario ---------------------------
@@ -386,4 +420,5 @@ def encriptar():
 
 if __name__=='__main__':
     app.run(debug=True, port=8081)
+    
     

@@ -110,3 +110,7 @@ class  formLogin(FlaskForm):
         'minlength':'6'} )
     enviar = SubmitField('Inicia Sesión!', render_kw={'onmouseover':'consultar_login()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Inicia Sesión'} )
 
+
+class  formSearch(FlaskForm):
+    usuario = StringField('Usuario', validators=[DataRequired(message='No dejar vacio')], render_kw={'placeholder':'Datos de Busqueda', 'class':'input','type':'text', 'id':'search_user', 'autocomplete':'search_user', 'placeholder':'pepitoperez'} )
+    enviar = SubmitField('Busqueda', render_kw={'onmouseover':'consultar_user()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Busqueda'} )
