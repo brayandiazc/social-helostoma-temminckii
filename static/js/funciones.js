@@ -61,3 +61,7 @@ function ir_register(){
 function adicionar_publicacion(){
     document.getElementById("PhotoForm").action="/publicacion_new/save"
 }
+
+function ir_publicaciones(){
+    document.getElementById("PhotoForm").action="/publicaciones"
+}
