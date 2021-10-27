@@ -20,7 +20,7 @@ from post import *
 from markupsafe import escape #Cambia lo ingresado en el formulario a texto
 
 import hashlib #Criptografia
-from werkzeug.security import generate_password_hash 
+from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
 from flask_wtf.file import FileField, FileRequired
@@ -88,7 +88,7 @@ lista__publicaciones={
     2023:{'titulo':"Publicación hecha por: " + usuarios_sistema[2],'contenido':"La idea aquí es hacer publicaciones comparando tu producto o servicio con la competencia en el mercado.  Por ejemplo, en un asunto que aquí nos compete en nuestro blog, sería hacer el comparativo entre el marketing de contenidos y la publicidad. No obstante, para que este tipo de contenidos gane relevancia, a veces es interesante que presentes algunos casos en los que tu producto NO es la mejor opción. #23",'fecha_inicio':"datetimeinicio",'fecha_final':"datetimefin",'id_usuario':"101",'img_id':"idimagen",'estado':"0",'calificacion_id':[1,0,1,1,0]},
     2024:{'titulo':"Publicación hecha por: " + usuarios_sistema[3],'contenido':"La idea aquí es hacer publicaciones comparando tu producto o servicio con la competencia en el mercado.  Por ejemplo, en un asunto que aquí nos compete en nuestro blog, sería hacer el comparativo entre el marketing de contenidos y la publicidad. No obstante, para que este tipo de contenidos gane relevancia, a veces es interesante que presentes algunos casos en los que tu producto NO es la mejor opción. #24",'fecha_inicio':"datetimeinicio",'fecha_final':"datetimefin",'id_usuario':"101",'img_id':"idimagen",'estado':"0",'calificacion_id':[1,0,1,1,0]},
     2025:{'titulo':"Publicación hecha por: " + usuarios_sistema[4],'contenido':"La idea aquí es hacer publicaciones comparando tu producto o servicio con la competencia en el mercado.  Por ejemplo, en un asunto que aquí nos compete en nuestro blog, sería hacer el comparativo entre el marketing de contenidos y la publicidad. No obstante, para que este tipo de contenidos gane relevancia, a veces es interesante que presentes algunos casos en los que tu producto NO es la mejor opción. #25",'fecha_inicio':"datetimeinicio",'fecha_final':"datetimefin",'id_usuario':"101",'img_id':"idimagen",'estado':"0",'calificacion_id':[1,0,1,1,0]}
-    
+
 }
 
 #print(lista__publicaciones)
@@ -133,7 +133,7 @@ def ingreso():
     global sesion_usuario
 
     form = formLogin()
-    return render_template("login.html", form=form)    
+    return render_template("login.html", form=form)
 
 
 '''    if request.method=="GET":
@@ -161,32 +161,32 @@ def ingreso_get():
         correo=escape(form.correo.data)
         clave=escape(form.clave.data)
         if (sql_get_email_login(correo)==True):
-            try:    
+            try:
                 row_info=sql_get_user_info_login(correo)
                 usuario=row_info["username"]
                 nombre=row_info["name"]
                 apellido=row_info["lastname"]
-                tipo=row_info["id_type"]    
-                id_user= row_info["id"]              
+                tipo=row_info["id_type"]
+                id_user= row_info["id"]
                 if (sql_get_pwd_login(correo, clave)==True):
                     print(row_info["username"])
                     session["user"]=usuario
                     session["id_type"]=tipo
                     session["name"]=nombre
-                    session["lastname"]=apellido  
-                    session["id"]=id_user  
+                    session["lastname"]=apellido
+                    session["id"]=id_user
                     sesion_iniciada=True
 
                     form=formLogin()
                     flash(f'Ingreso de sesion de {usuario}')
-                    return redirect('/publicaciones')   
+                    return redirect('/publicaciones')
                 else:
-                   return render_template("login.html", form=form)                       
+                    return render_template("login.html", form=form)
             except Error:
                 print(os.error)
         else:
             flash("Usuario no registrado en la aplicación")
-            return render_template("login.html", form=form)               
+            return render_template("login.html", form=form)
 
 
 # Salir ----------------------
@@ -215,41 +215,40 @@ def perfil_edit():
 def perfil_edit_save():
     form=formEditProfile()
     #row_info=sql_get_user_info(sesion_usuario)
-    row_info=sql_get_user_info(session["user"])    
+    row_info=sql_get_user_info(session["user"])
     print(row_info)
-   
+
     if request.method == "POST":
         usuario=escape(form.usuario.data)
-        nombre=escape(form.nombre.data)  
-        apellido=escape(form.apellido.data)      
+        nombre=escape(form.nombre.data)
+        apellido=escape(form.apellido.data)
         correo=escape(form.correo.data)
         clave=escape(form.clave.data)
         bd=escape(form.bd.data)
         genero=escape(form.genero.data)
-        como=escape(form.como.data)        
+        como=escape(form.como.data)
         hashclave=generate_password_hash(clave) #se genera el hash + salt critografia.
 
         try:
-       
 
             if (sql_get_email_profile(usuario,correo)==True):
                     #metodo para hacer insert a la base de datos. Se encuentra en la clase register.py
                     sql_update_user_profile(usuario,nombre, apellido, correo,hashclave,bd,genero, como)
                     #flash("Usuario editado con Exito")
-                    row_info=sql_get_user_info(session["user"]) 
-                    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)   
+                    row_info=sql_get_user_info(session["user"])
+                    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
             else:
                     flash("Correo ya esta asociado a otro usuario en la Base de datos.")
-                    row_info=sql_get_user_info(session["user"]) 
-                    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)                    
-        
-        except Error:
-            row_info=sql_get_user_info(session["user"]) 
-            return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)  
-        #Metodo de envio de correo.    
+                    row_info=sql_get_user_info(session["user"])
+                    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
 
-    row_info=sql_get_user_info(session["user"]) 
-    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)  
+        except Error:
+            row_info=sql_get_user_info(session["user"])
+            return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
+        #Metodo de envio de correo.
+
+    row_info=sql_get_user_info(session["user"])
+    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
 
 # Perfil usuarios ---------------------------
 @app.route("/usuario/<id_usuario>",methods=["GET"])
@@ -293,7 +292,7 @@ def publicacion_new_save():
     global sesion_iniciada
 
     form = PhotoForm()
-    if "user" in session:  
+    if "user" in session:
         if request.method == "POST":
             print("Entro al validate")
             f = form.photo.data
@@ -319,7 +318,7 @@ def publicacion_new_save():
             row_post=sql_get_post_id(usuario_id)
             row_img=sql_get_image_id(usuario_id)
             sql_insert_postimg(row_post["ID_MAX"], row_img["ID_MAX"])
-            
+
             flash("Publicación Creada con Exito...")
             return render_template("publicacion_new.html", sesion_iniciada=sesion_iniciada,form=form)
     else:
@@ -355,12 +354,12 @@ def detalle_pub(id_publicacion):
 @app.route("/busqueda/",methods=["GET"])
 def busqueda():
     form=formSearch()
-    if "user" in session:   
-        row_info=sql_get_user_search_all()    
+    if "user" in session:
+        row_info=sql_get_user_search_all()
         for row in row_info:
             print(row["username"])
 
-        return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)  
+        return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)
         #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
     else:
         flash("El usuario debe iniciar sesión.")
@@ -373,17 +372,17 @@ def busqueda_get():
     form=formSearch()
     data_search=escape(form.usuario.data)
 
-    if "user" in session:  
+    if "user" in session:
         row_info=sql_get_user_search(data_search)
         if row_info is None:
-           #return "Elemento no encontrado" 
-           return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)    
+            #return "Elemento no encontrado"
+            return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)
         else:
             #return "Exito en Busqueda"
-            return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)   
+            return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)
     else:
         flash("El usuario debe iniciar sesión.")
-        return render_template("index.html", sesion_iniciada=sesion_iniciada)    
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 
         #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
@@ -445,8 +444,8 @@ def encriptar():
             error="Password no coincide"
             flash(error)
             return render_template("register.html", form=form)
-            #Registro en la base de datos.   
-            #  
+            #Registro en la base de datos.
+            #
         try:
 
             if (sql_get_user(usuario)==False):
@@ -454,21 +453,18 @@ def encriptar():
                     #metodo para hacer insert a la base de datos. Se encuentra en la clase register.py
                     sql_insert_user(usuario, correo,hashclave,is_active,created_at,id_type)
                     flash("usuario registrado con Exito")
-                    #return render_template("/ingreso")   
-                    return redirect('/ingreso')   
+                    #return render_template("/ingreso")
+                    return redirect('/ingreso')
                 else:
                     flash("Correo ya esta registrado en la Base de datos.")
-                    return render_template("register.html", form=form)                    
+                    return render_template("register.html", form=form)
             else:
                 flash("usuario ya esta registrado en la Base de datos.")
-                return render_template("register.html", form=form) 
+                return render_template("register.html", form=form)
 
         except Error:
-            return render_template("register.html", form=form) 
-        #Metodo de envio de correo.             
+            return render_template("register.html", form=form)
     return "No metodo POST"
 
 if __name__=='__main__':
     app.run(debug=True, port=8081)
-    
-    
