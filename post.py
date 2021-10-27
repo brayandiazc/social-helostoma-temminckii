@@ -79,3 +79,42 @@ def sql_get_image_id(usuario_id):
                 return row
             except Error:
                 print(Error)
+
+def sql_get_post_detail(post_id):
+        
+        conn =create_connection("helostoma.db") 
+        with conn as con:
+            try:
+                con.row_factory=sqlite3.Row
+                cur = con.cursor()                                
+                cur.execute("SELECT * FROM VIEW_USER_POST WHERE POST_ID = ?", [post_id])
+                row = cur.fetchone()
+                print(row)
+                return row
+            except Error:
+                print(Error)                
+
+def sql_get_comment_detail(post_id):
+        
+        conn =create_connection("helostoma.db") 
+        with conn as con:
+            try:
+                con.row_factory=sqlite3.Row
+                cur = con.cursor()                                
+                cur.execute("SELECT * FROM VIEW_POST_COMMENT WHERE POST_ID = ? AND IS_ACTIVE=1", [post_id])
+                row = cur.fetchall()
+                print(row)
+                return row
+            except Error:
+                print(Error)                   
+
+def sql_insert_comment(usuario_id, id_publicacion,contenido,creado, estado):
+        
+        conn =create_connection("helostoma.db") 
+        with conn as con:
+            try:
+                cur = con.cursor()                                
+                cur.execute("INSERT INTO comment (user_id,ref_id, content, created_at, is_active) VALUES(?,?,?,?,?) ", (usuario_id, id_publicacion,contenido,creado, estado))
+                con.commit
+            except Error:
+                con.rollback()                

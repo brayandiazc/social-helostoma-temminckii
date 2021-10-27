@@ -10,7 +10,7 @@ from datetime import date
 # En tu programa que utiliza el paquete package
 #from settings import create_connection
 from settings.config import create_connection
-from forms import formEditProfile, formRegister, formLogin, formSearch, PhotoForm
+from forms import formEditProfile, formRegister, formLogin, formSearch, PhotoForm, CommentsForm
 from registers import * #register, sql_insert_user,sql_get_user
 from login import *
 from search import*
@@ -302,6 +302,7 @@ def publicacion_new_save():
             fuente=os.path.join(app.root_path, 'static\images', filename)
             print(os.path.join(app.root_path, 'static\images', filename))
             f.save(os.path.join(app.root_path, 'static\images', filename))
+            print(filename)
 
             usuario_id=session["id"]
             titulo=escape(form.titulo.data)
@@ -309,7 +310,9 @@ def publicacion_new_save():
             estado=1
             creado=date.today()
 
-            src_img ="{{ url_for('static', filename='images/"+ filename +"')}}"
+            #src_img ="{{ url_for('static', filename='images/"+ filename +"')}}"
+            src_img =filename
+            print(src_img)
 
             #insert a tabla Post
             sql_insert_post(usuario_id, titulo,contenido,estado,creado)
@@ -337,19 +340,58 @@ def publicacion():
     return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
 
 # Detalle de las publicaciones -----------
-@app.route("/detalle_pub/<id_publicacion>",methods=["GET","POST"])
+@app.route("/detalle_pub/<id_publicacion>",methods=["GET"])
 def detalle_pub(id_publicacion):
-    try:
-        id_publicacion=int(id_publicacion)
-    except Exception as e:
-        id_publicacion=0
+    form=CommentsForm()
 
-    if id_publicacion in lista__publicaciones:
-        #return lista__publicaciones[id_publicacion]
-        return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion)
-    else:
-        return f"Error, la publicacion {id_publicacion} no exite en la base de datos"
-        #return f"Pagina detalle de la publicacion {id_publicacion}"  #detalla_pub.html
+    try:
+        if "user" in session:
+            
+            post_id=9
+            id_publicacion=post_id
+            form.pub.data=id_publicacion
+            row_info=sql_get_post_detail(post_id)
+            row_info_comment=sql_get_comment_detail(post_id)
+
+            return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form)
+        else:
+                flash("El usuario debe iniciar sesión.")
+                return render_template("index.html", sesion_iniciada=sesion_iniciada)                
+    except Error:
+            return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form) 
+
+# Insertar Comentarios de las publicaciones -----------
+@app.route("/save_comment",methods=["POST"])
+def save_comment():
+    form=CommentsForm()
+
+    try:
+        if "user" in session:
+            
+            id_publicacion=escape(form.pub.data)
+            form.pub.data=id_publicacion
+            contenido=escape(form.contenido.data)
+            post_id=id_publicacion
+            usuario_id=session["id"]
+            estado=1
+            creado=date.today()
+
+            sql_insert_comment(usuario_id, id_publicacion,contenido,creado, estado)
+            flash("Comentario registrado con Exito.")
+            form.contenido.data=""
+
+            row_info=sql_get_post_detail(post_id)
+            row_info_comment=sql_get_comment_detail(post_id)
+
+            return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form)
+        else:
+                flash("El usuario debe iniciar sesión.")
+                return render_template("index.html", sesion_iniciada=sesion_iniciada)                
+    except Error:
+            return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form) 
+
+
+
 
 # Busqueda de usuario ---------------------------
 @app.route("/busqueda/",methods=["GET"])

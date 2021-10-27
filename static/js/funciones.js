@@ -65,3 +65,7 @@ function adicionar_publicacion(){
 function ir_publicaciones(){
     document.getElementById("PhotoForm").action="/publicaciones"
 }
+
+function adicionar_comentario(){
+    document.getElementById("CommentsForm").action="/save_comment"
+}

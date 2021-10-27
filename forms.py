@@ -128,3 +128,9 @@ class  PhotoForm(FlaskForm):
     guardar = SubmitField('Publicar', render_kw={'onmouseover':'adicionar_publicacion()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Publicar'} )    
     cancelar = SubmitField('Cancelar', render_kw={'onmouseover':'ir_publicaciones()',  'class':'button is-link is-light', 'type':'submit', 'value':'Cancelar'} )    
 
+class  CommentsForm(FlaskForm):
+    pub = StringField('', render_kw={'class':'input','type':'hidden', 'id':'pub'} )
+    contenido = TextAreaField('Comentar', default='Comentar', render_kw={'class':'textarea'})
+    guardar = SubmitField('Publicar comentario', render_kw={'onmouseover':'adicionar_comentario()',  'class':'button', 'type':'submit', 'value':'Publicar comentario'} )    
+    
+
