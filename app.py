@@ -201,7 +201,19 @@ def salir():
 # Perfil ----------------------
 @app.route("/perfil",methods=["GET","POST"])
 def perfil():
-        return render_template("perfil.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
+    if "user" in session:  
+        usuario_id=session["id"]
+        row_post=sql_get_post_search(usuario_id)   
+        for row in row_post:
+            print(row["src"])
+            
+        return render_template("perfil.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones,row_post=row_post)
+        # return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada, row_post=row_post, lista_publicaciones=lista__publicaciones)  
+        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
+
 
 @app.route("/perfil_edit",methods=["GET","POST"])
 def perfil_edit():
@@ -328,15 +340,25 @@ def publicacion_new_save():
         flash("El usuario debe iniciar sesión.")
         return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
-
-
-
 # Publicaciones --------------
 @app.route("/publicaciones",methods=["GET","POST"])
 def publicacion():
-    global sesion_iniciada
-    #return "Pagina de todas las publicaciones"  #publicaciones.html .....................
-    return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
+    
+    if "user" in session:   
+        row_post=sql_get_post_search_all()    
+        for row in row_post:
+            print(row["src"])
+        
+        return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada, row_post=row_post)  
+        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada) # ------------------------
+
+    # global sesion_iniciada
+    # #return "Pagina de todas las publicaciones"  #publicaciones.html .....................
+    # return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
+
 
 # Detalle de las publicaciones -----------
 @app.route("/detalle_pub/<id_publicacion>",methods=["GET"])
@@ -346,8 +368,9 @@ def detalle_pub(id_publicacion):
     try:
         if "user" in session:
             
-            post_id=9
-            id_publicacion=post_id
+            # post_id=9
+            # id_publicacion=post_id
+            post_id=id_publicacion
             form.pub.data=id_publicacion
             row_info=sql_get_post_detail(post_id)
             row_info_comment=sql_get_comment_detail(post_id)

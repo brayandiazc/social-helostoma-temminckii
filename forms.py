@@ -117,8 +117,6 @@ class  formSearch(FlaskForm):
     enviar = SubmitField('Busqueda', render_kw={'onmouseover':'consultar_user()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Busqueda'} )
 
 
-
-
 class  PhotoForm(FlaskForm):
     titulo = StringField('Título', validators=[DataRequired(message='No dejar vacio')], render_kw={'placeholder':'Título', 'class':'input','type':'text', 'id':'username', 'autocomplete':'titulo', 'required':'true', 'placeholder':'Título Publicación'} )
     #url_img = StringField('Url Imagen', validators=[DataRequired(message='No dejar vacio')], render_kw={'placeholder':'Url Imagen', 'class':'input','type':'text', 'id':'username', 'autocomplete':'url_img', 'required':'true', 'placeholder':'Url Imagen'} )

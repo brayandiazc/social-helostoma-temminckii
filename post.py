@@ -117,4 +117,34 @@ def sql_insert_comment(usuario_id, id_publicacion,contenido,creado, estado):
                 cur.execute("INSERT INTO comment (user_id,ref_id, content, created_at, is_active) VALUES(?,?,?,?,?) ", (usuario_id, id_publicacion,contenido,creado, estado))
                 con.commit
             except Error:
-                con.rollback()                
+                con.rollback()
+
+#------------------------------------------------
+def sql_get_post_search(usuario_id):
+        
+        conn =create_connection("helostoma.db") 
+        with conn as con:
+            try:
+                con.row_factory=sqlite3.Row
+                cur = con.cursor()        
+                #my_data=str([publicacion])
+                # my_data=('%'+publicacion+'%',) 
+                # print(my_data)
+                cur.execute("SELECT * FROM view_user_post WHERE USER_ID= ?",[usuario_id] )
+                row = cur.fetchall()
+                return row
+            except Error:
+                print(Error)  
+
+def sql_get_post_search_all():
+        
+        conn =create_connection("helostoma.db") 
+        with conn as con:
+            try:
+                con.row_factory=sqlite3.Row
+                cur = con.cursor()        
+                cur.execute("SELECT * FROM view_user_post WHERE IS_ACTIVE=1")
+                row = cur.fetchall()
+                return row
+            except Error:
+                print(Error)                  

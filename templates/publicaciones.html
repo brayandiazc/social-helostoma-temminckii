@@ -9,26 +9,29 @@
   <div class="container">
     <h2 class="title has-text-centered">Publicaciones</h2>
     <div class="columns is-multiline">
-      {% for key, publicacion in lista_publicaciones.items() %}
+      {% for row in row_post %}
       <div class="column is-6-tablet is-3-desktop">
         <div class="card" style="height: 100%">
           <div class="card-image">
-            <a href="{{ url_for('detalle_pub',id_publicacion=key) }}"
-              ><img src="http://lorempixel.com/1280/960/sports" alt=""
-            /></a>
+            <a href="{{ url_for('detalle_pub',id_publicacion=row["post_id"]) }}">
+              <img
+                src="{{ url_for('static', filename = 'images/'+row["src"]) }}"
+                alt="Placeholder image"
+              />
+            </a>
           </div>
           <div class="card-content">
             <div class="block">
               <small class="is-size-7"
-                >24 octubre 2021 | {{ "@" + (publicacion.id_usuario) }}</small
+                >{{ row["created_at"] }} | {{ row["NAME_COMPLETE"] }}</small
               >
             </div>
             <h5 class="title is-6">
               <a href="{{ url_for('detalle_pub',id_publicacion=key) }}"
-                >{{ publicacion.titulo }}</a
+                >{{ row["title"] }}</a 
               >
             </h5>
-            <p>{{ publicacion.contenido | truncate(150) }}</p>
+            <p>{{ row["content"] | truncate(150) }}</p>
             <nav class="level is-mobile">
               <div class="level-left">
                 <a
