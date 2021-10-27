@@ -38,17 +38,18 @@
       <div class="column is-6-tablet is-3-desktop">
         <div class="box has-background-white">
           <div class="has-text-centered mb-4">
-            <a href="#" class="image is-48x48 m-auto">
+            <a href="{{ url_for('perfil_bq',usuario_id=row["id"]) }}" class="image is-48x48 m-auto">
               <img
                 alt="profil"
-                src="http://lorempixel.com/256/256/people"
+                src="{{ url_for('static', filename = 'images/'+row["image"]) }}"
                 class="is-rounded"
               />
             </a>
           </div>
           <div class="has-text-centereder">
             <p class="is-size-4 has-text-grey-dark">
-              {{ row["NAME_COMPLETE"] }}
+              <a href="{{ url_for('perfil_bq',usuario_id=row["id"]) }}">
+              {{ row["NAME_COMPLETE"] }}</a>
             </p>
             <p class="is-size-5 has-text-grey has-text-weight-light">
               {{ row["username"] }}

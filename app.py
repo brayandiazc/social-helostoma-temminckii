@@ -6,8 +6,6 @@ import random
 import sqlite3
 from sqlite3 import Error
 from datetime import date
-
-# En tu programa que utiliza el paquete package
 #from settings import create_connection
 from settings.config import create_connection
 from forms import formEditProfile, formRegister, formLogin, formSearch, PhotoForm, CommentsForm
@@ -16,18 +14,12 @@ from login import *
 from search import*
 from post import *
 
-
 from markupsafe import escape #Cambia lo ingresado en el formulario a texto
-
 import hashlib #Criptografia
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
-
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
-
-
-
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -37,7 +29,7 @@ usuarios_sistema=["Brayan","Fernando","Sergio","Geovanny","Jairo"]
 
 
 #Se crea un diccionario de usuarios reuniniendo los requisitos del sistema by Geo
-    # ID:{'user':"string",'fullname': "string",'birth':['dia', 'mes', 'año'],'email': "string",'genre':"string",'tipo': "string"}
+
 lista_usuarios={
     101:{'user':"Brayan",'full_name':"Brayan Díaz",'birth':['03','12','1980'],'email':"brayan@gmail.com",'genre':"Masculino",'tipo':"super_admin"},
     102:{'user':"Fernando",'full_name':"Fernando Sandoval",'birth':['04','11','1999'],'email':"fernando@gmail.com",'genre':"Masculino",'tipo':"usuario"},
@@ -47,8 +39,6 @@ lista_usuarios={
     106:{'user':"Shary",'full_name':"Shary Tutora",'birth':['08','06','1999'],'email':"shary@gmail.com",'genre':"Masculino",'tipo':"usuario"},
 }
 
-#print(lista_usuarios[101])
-#print(lista_usuarios[random.randint(101,106)])
 #Se crea un dicicionario de publicaciones con la finalidad de validar la algoritmica simple
 lista_publicaciones={
     123:{'titulo':"publicaciones #1",'cuerpo': "Publicacion Cuerpo",'imagenes':['img 1','img 2','img 3','img 4']},
@@ -121,9 +111,6 @@ sesion_usuario=''
 # Index ----------------------
 @app.route("/index", methods=["GET"])
 def index():
-    #Si ya inicio Sesion ->Lista de publicaciones Feed.
-    #Sino -> Bienvenida
-    #return render_template("register.html")
     return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 # Ingreso ----------------------
@@ -131,26 +118,8 @@ def index():
 def ingreso():
     global sesion_iniciada
     global sesion_usuario
-
     form = formLogin()
     return render_template("login.html", form=form)
-
-
-'''    if request.method=="GET":
-        return render_template("login.html")
-    else:
-        email=request.form["email"]
-
-        for key, usuarios in lista_usuarios.items():
-            #print(usuarios["email"])
-            if email==usuarios["email"]:
-                sesion_iniciada=True
-                sesion_usuario='javinas'
-                return redirect('/publicaciones')
-                break
-        cadena=f"Error, el email {email} no exite en la base de datos"
-        return render_template('login.html',cadena=cadena)
-'''
 
 @app.route("/ingreso/get",methods=["POST"])
 def ingreso_get():
@@ -203,64 +172,94 @@ def salir():
 def perfil():
     if "user" in session:  
         usuario_id=session["id"]
+        row_user=sql_get_user_info_login_post(usuario_id)
+
+        profile_name=row_user["name_complete"]
+        profile_image=row_user["image"]
+
         row_post=sql_get_post_search(usuario_id)   
         for row in row_post:
             print(row["src"])
-            
-        return render_template("perfil.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones,row_post=row_post)
-        # return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada, row_post=row_post, lista_publicaciones=lista__publicaciones)  
-        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
+    
+        return render_template("perfil.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones,row_post=row_post,profile_name=profile_name,profile_image=profile_image,row_user=row_user)
+
     else:
         flash("El usuario debe iniciar sesión.")
         return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
+# Perfil ----------------------
+@app.route("/perfil_bq/<usuario_id>",methods=["GET","POST"])
+def perfil_bq(usuario_id):
+    if "user" in session:  
+        #usuario_id=session["id"]
+        row_user=sql_get_user_info_login_post(usuario_id)
+        profile_name=row_user["name_complete"]
+        profile_image=row_user["image"]
+        row_post=sql_get_post_search(usuario_id)   
+        for row in row_post:
+            print(row["src"])
+
+        return render_template("perfil.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones,row_post=row_post,profile_name=profile_name,profile_image=profile_image,row_user=row_user)
+
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)        
+
 
 @app.route("/perfil_edit",methods=["GET","POST"])
 def perfil_edit():
-    form=formEditProfile()
-    #row_info=sql_get_user_info(sesion_usuario)
-    row_info=sql_get_user_info(session["user"])
-    print(row_info)
-    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada,form=form, sesion_usuario=sesion_usuario, row_info=row_info)
+    if "user" in session:
+            form=formEditProfile()
+            #row_info=sql_get_user_info(sesion_usuario)
+            row_info=sql_get_user_info(session["user"])
+            print(row_info)
+            return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada,form=form, sesion_usuario=sesion_usuario, row_info=row_info)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 @app.route("/perfil_edit/save",methods=["GET","POST"])
 def perfil_edit_save():
     form=formEditProfile()
     #row_info=sql_get_user_info(sesion_usuario)
-    row_info=sql_get_user_info(session["user"])
-    print(row_info)
+    if "user" in session:
+        row_info=sql_get_user_info(session["user"])
+        print(row_info)
 
-    if request.method == "POST":
-        usuario=escape(form.usuario.data)
-        nombre=escape(form.nombre.data)
-        apellido=escape(form.apellido.data)
-        correo=escape(form.correo.data)
-        clave=escape(form.clave.data)
-        bd=escape(form.bd.data)
-        genero=escape(form.genero.data)
-        como=escape(form.como.data)
-        hashclave=generate_password_hash(clave) #se genera el hash + salt critografia.
+        if request.method == "POST":
+            usuario=escape(form.usuario.data)
+            nombre=escape(form.nombre.data)
+            apellido=escape(form.apellido.data)
+            correo=escape(form.correo.data)
+            clave=escape(form.clave.data)
+            bd=escape(form.bd.data)
+            genero=escape(form.genero.data)
+            como=escape(form.como.data)
+            hashclave=generate_password_hash(clave) #se genera el hash + salt critografia.
 
-        try:
+            try:
 
-            if (sql_get_email_profile(usuario,correo)==True):
-                    #metodo para hacer insert a la base de datos. Se encuentra en la clase register.py
-                    sql_update_user_profile(usuario,nombre, apellido, correo,hashclave,bd,genero, como)
-                    #flash("Usuario editado con Exito")
-                    row_info=sql_get_user_info(session["user"])
-                    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
-            else:
-                    flash("Correo ya esta asociado a otro usuario en la Base de datos.")
-                    row_info=sql_get_user_info(session["user"])
-                    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
+                if (sql_get_email_profile(usuario,correo)==True):
+                        #metodo para hacer insert a la base de datos. Se encuentra en la clase register.py
+                        sql_update_user_profile(usuario,nombre, apellido, correo,hashclave,bd,genero, como)
+                        #flash("Usuario editado con Exito")
+                        row_info=sql_get_user_info(session["user"])
+                        return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
+                else:
+                        flash("Correo ya esta asociado a otro usuario en la Base de datos.")
+                        row_info=sql_get_user_info(session["user"])
+                        return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
 
-        except Error:
-            row_info=sql_get_user_info(session["user"])
-            return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
-        #Metodo de envio de correo.
+            except Error:
+                row_info=sql_get_user_info(session["user"])
+                return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
+            #Metodo de envio de correo.
 
-    row_info=sql_get_user_info(session["user"])
-    return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
+        row_info=sql_get_user_info(session["user"])
+        return render_template("perfil_edit.html", sesion_iniciada=sesion_iniciada, sesion_usuario=sesion_usuario,form=form,row_info=row_info)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 # Perfil usuarios ---------------------------
 @app.route("/usuario/<id_usuario>",methods=["GET"])
@@ -277,7 +276,7 @@ def usuario_informacion(id_usuario):
 def admin_informacion(id_admin):
     id_admin=int(id_admin)
     if id_admin in lista_usuarios:
-        #return f"Pagina del Perfil del usuario Admin {id_admin}"   #validacion simple de Perfil admin
+
         return render_template("dashboard.html", sesion_iniciada=sesion_iniciada,lista_usuarios=lista_usuarios, id_admin=id_admin)
     else:
         return f"Error, el usuario {id_admin} no exite en la base de datos"
@@ -294,10 +293,13 @@ def superadmin_informacion(id_superadmin):
 @app.route("/publicacion_new",methods=["GET","POST"])
 def publicacion_new():
     global sesion_iniciada
-
     form = PhotoForm()
-    #return render_template('upload.html', form=form)
-    return render_template("publicacion_new.html", sesion_iniciada=sesion_iniciada,form=form)
+    if "user" in session:    
+        return render_template("publicacion_new.html", sesion_iniciada=sesion_iniciada,form=form)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
+
 
 @app.route("/publicacion_new/save",methods=["GET","POST"])
 def publicacion_new_save():
@@ -314,13 +316,11 @@ def publicacion_new_save():
             print(os.path.join(app.root_path, 'static\images', filename))
             f.save(os.path.join(app.root_path, 'static\images', filename))
             print(filename)
-
             usuario_id=session["id"]
             titulo=escape(form.titulo.data)
             contenido=escape(form.contenido.data)
             estado=1
             creado=date.today()
-
             #src_img ="{{ url_for('static', filename='images/"+ filename +"')}}"
             src_img =filename
             print(src_img)
@@ -347,18 +347,12 @@ def publicacion():
     if "user" in session:   
         row_post=sql_get_post_search_all()    
         for row in row_post:
-            print(row["src"])
-        
+            print(row["src"])        
         return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada, row_post=row_post)  
-        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
+
     else:
         flash("El usuario debe iniciar sesión.")
         return render_template("index.html", sesion_iniciada=sesion_iniciada) # ------------------------
-
-    # global sesion_iniciada
-    # #return "Pagina de todas las publicaciones"  #publicaciones.html .....................
-    # return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
-
 
 # Detalle de las publicaciones -----------
 @app.route("/detalle_pub/<id_publicacion>",methods=["GET"])
@@ -367,9 +361,6 @@ def detalle_pub(id_publicacion):
 
     try:
         if "user" in session:
-            
-            # post_id=9
-            # id_publicacion=post_id
             post_id=id_publicacion
             form.pub.data=id_publicacion
             row_info=sql_get_post_detail(post_id)
@@ -386,7 +377,6 @@ def detalle_pub(id_publicacion):
 @app.route("/save_comment",methods=["POST"])
 def save_comment():
     form=CommentsForm()
-
     try:
         if "user" in session:
             
@@ -412,9 +402,6 @@ def save_comment():
     except Error:
             return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form) 
 
-
-
-
 # Busqueda de usuario ---------------------------
 @app.route("/busqueda/",methods=["GET"])
 def busqueda():
@@ -423,9 +410,7 @@ def busqueda():
         row_info=sql_get_user_search_all()
         for row in row_info:
             print(row["username"])
-
         return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form, row_info=row_info)
-        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,form=form)
     else:
         flash("El usuario debe iniciar sesión.")
         return render_template("index.html", sesion_iniciada=sesion_iniciada)
@@ -450,40 +435,45 @@ def busqueda_get():
         return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 
-        #return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones)
-
-
-
 # Busqueda de usuario ---------------------------
 @app.route("/busqueda/<id_usuario>",methods=["GET","POST"])
 def busqueda_usuario(id_usuario):
-    id_usuario=int(id_usuario)
-    if id_usuario in lista_usuarios:
-        #return f"El usuario que buscas Existe: {id_usuario}, en la Base de Datos."
-        return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,lista_usuarios=lista_usuarios, id_usuario=id_usuario,lista_publicaciones=lista__publicaciones)
+    if "user" in session:     
+        id_usuario=int(id_usuario)
+        if id_usuario in lista_usuarios:
+            return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,lista_usuarios=lista_usuarios, id_usuario=id_usuario,lista_publicaciones=lista__publicaciones)
+        else:
+            return f"El usuario que buscas no existe: {id_usuario}"
     else:
-        return f"El usuario que buscas no existe: {id_usuario}"
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 # Mensajes ---------------------
 @app.route("/msg",methods=["GET"])
 def msg():
     global sesion_iniciada
-    #return f"Pagina de Mensajes"  #msg.html
-    return render_template("mensajes.html", sesion_iniciada=sesion_iniciada,lista_mensaje=lista_mensaje)
+    if "user" in session:  
+        return render_template("mensajes.html", sesion_iniciada=sesion_iniciada,lista_mensaje=lista_mensaje)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 # Mensajes privados --------------
 @app.route("/msg_privado/<id_msg>",methods=["GET","POST"])
 def msg_privado(id_msg):
-    try:
-        id_msg=int(id_msg)
-    except Exception as e:
-        id_publicacion=0
+    if "user" in session: 
+        try:
+            id_msg=int(id_msg)
+        except Exception as e:
+            id_publicacion=0
 
-    if id_msg in lista_mensaje:
-        return lista_mensaje[id_msg]
+        if id_msg in lista_mensaje:
+            return lista_mensaje[id_msg]
+        else:
+            return f"Error, el mensaje {id_msg} no exite en la base de datos"
     else:
-        return f"Error, el mensaje {id_msg} no exite en la base de datos"
-    #return f"Pagina - Mensaje privado : {id_msg}"  #msg_privado.html
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 # Registrar ---------------------------
 @app.route("/register", methods=["GET", "POST"])
@@ -491,45 +481,47 @@ def register():
     form = formRegister()
     return render_template("register.html", form=form)
 
+
 @app.route('/register/save', methods=["POST"]) #Ruta para guardar claves
 def encriptar():
-    form=formRegister()
-    if request.method == "POST":
-        usuario=escape(form.usuario.data)
-        correo=escape(form.correo.data)
-        clave=escape(form.clave.data)
-        clave1=escape(form.clave1.data)
-        estado=escape(form.estado.data)
-        hashclave=generate_password_hash(clave) #se genera el hash + salt critografia.
-        is_active=1
-        created_at=date.today()
-        id_type=1
+        form=formRegister()
 
-        if (clave !=clave1):
-            error="Password no coincide"
-            flash(error)
-            return render_template("register.html", form=form)
-            #Registro en la base de datos.
-            #
-        try:
+        if request.method == "POST":
+            usuario=escape(form.usuario.data)
+            correo=escape(form.correo.data)
+            clave=escape(form.clave.data)
+            clave1=escape(form.clave1.data)
+            estado=escape(form.estado.data)
+            hashclave=generate_password_hash(clave) #se genera el hash + salt critografia.
+            is_active=1
+            created_at=date.today()
+            id_type=1
 
-            if (sql_get_user(usuario)==False):
-                if (sql_get_email(correo)==False):
-                    #metodo para hacer insert a la base de datos. Se encuentra en la clase register.py
-                    sql_insert_user(usuario, correo,hashclave,is_active,created_at,id_type)
-                    flash("usuario registrado con Exito")
-                    #return render_template("/ingreso")
-                    return redirect('/ingreso')
-                else:
-                    flash("Correo ya esta registrado en la Base de datos.")
-                    return render_template("register.html", form=form)
-            else:
-                flash("usuario ya esta registrado en la Base de datos.")
+            if (clave !=clave1):
+                error="Password no coincide"
+                flash(error)
                 return render_template("register.html", form=form)
+                #Registro en la base de datos.
+                #
+            try:
 
-        except Error:
-            return render_template("register.html", form=form)
-    return "No metodo POST"
+                if (sql_get_user(usuario)==False):
+                    if (sql_get_email(correo)==False):
+                        #metodo para hacer insert a la base de datos. Se encuentra en la clase register.py
+                        sql_insert_user(usuario, correo,hashclave,is_active,created_at,id_type)
+                        flash("usuario registrado con Exito")
+                        #return render_template("/ingreso")
+                        return redirect('/ingreso')
+                    else:
+                        flash("Correo ya esta registrado en la Base de datos.")
+                        return render_template("register.html", form=form)
+                else:
+                    flash("usuario ya esta registrado en la Base de datos.")
+                    return render_template("register.html", form=form)
+
+            except Error:
+                return render_template("register.html", form=form)
+        return "No metodo POST"
 
 if __name__=='__main__':
     app.run(debug=True, port=8081)

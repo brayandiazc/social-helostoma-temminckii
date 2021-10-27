@@ -13,7 +13,8 @@
           <div class="level-item">
             <div>
               <figure class="image is-128x128">
-                <img src="http://lorempixel.com/256/256/people" class="is-rounded">
+                <!--<img src="http://lorempixel.com/256/256/people" class="is-rounded">-->
+                <img src="{{ url_for('static', filename = 'images/'+row_user["image"]) }}" class="is-rounded">
               </figure>
             </div>
           </div>
@@ -30,7 +31,8 @@
             </div>
           </div>
         </nav>
-        <h1 class="title">{{ session["name"] + " " + session["lastname"] }}</h1>
+
+        <h1 class="title">{{ profile_name }}</h1>
         <h2 class="subtitle">
           {{ session["about"] }}
         </h2>
@@ -60,7 +62,7 @@
               >
             </div>
             <h5 class="title is-6">
-              <a href="{{ url_for('detalle_pub',id_publicacion=key) }}"
+              <a href="{{ url_for('detalle_pub',id_publicacion=row["post_id"]) }}"
                 >{{ row["title"] }}</a 
               >
             </h5>
@@ -68,7 +70,7 @@
             <nav class="level is-mobile">
               <div class="level-left">
                 <a
-                  href="{{ url_for('detalle_pub',id_publicacion=key) }}"
+                  href="{{ url_for('detalle_pub',id_publicacion=row["post_id"]) }}"
                   class="level-item"
                   aria-label="reply"
                 >

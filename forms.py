@@ -89,7 +89,7 @@ class  formEditProfile(FlaskForm):
 
     #estado=BooleanField('Estado',render_kw={'type':'checkbox', 'required':'true'})    ---actualizar_register()
     guardar = SubmitField('Guardar', render_kw={'onmouseover':'actualizar_register()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Guardar'} )    
-    cancelar = SubmitField('Cancelar', render_kw={'onmouseover':'ir_publicaciones()',  'class':'button is-link is-light', 'type':'submit', 'value':'Cancelar'} )    
+    cancelar = SubmitField('Cancelar', render_kw={'onmouseover':'ir_publicaciones_p()',  'class':'button is-link is-light', 'type':'submit', 'value':'Cancelar'} )    
 
 
 class  formLogin(FlaskForm):
@@ -120,7 +120,7 @@ class  formSearch(FlaskForm):
 class  PhotoForm(FlaskForm):
     titulo = StringField('Título', validators=[DataRequired(message='No dejar vacio')], render_kw={'placeholder':'Título', 'class':'input','type':'text', 'id':'username', 'autocomplete':'titulo', 'required':'true', 'placeholder':'Título Publicación'} )
     #url_img = StringField('Url Imagen', validators=[DataRequired(message='No dejar vacio')], render_kw={'placeholder':'Url Imagen', 'class':'input','type':'text', 'id':'username', 'autocomplete':'url_img', 'required':'true', 'placeholder':'Url Imagen'} )
-    photo = FileField(validators=[FileRequired()], render_kw={'class':'file-input', 'type':'file'})
+    photo = FileField(render_kw={'class':'file-input', 'type':'file'})
     contenido = TextAreaField('Contenido Publición', default='Contenido Publicación', render_kw={'class':'textarea'})
     #como = StringField('Sobre mi', render_kw={'placeholder':'Sobre mi', 'class':'textarea'})    
     guardar = SubmitField('Publicar', render_kw={'onmouseover':'adicionar_publicacion()',  'class':'button is-link is-fullwidth', 'type':'submit', 'value':'Publicar'} )    

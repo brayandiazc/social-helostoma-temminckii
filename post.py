@@ -148,3 +148,20 @@ def sql_get_post_search_all():
                 return row
             except Error:
                 print(Error)                  
+
+def sql_get_user_info_login_post(usuario_id):
+
+        conn =create_connection("helostoma.db") 
+        with conn as con:
+            try:
+                con.row_factory=sqlite3.Row
+                cur = con.cursor()                                
+                cur.execute("SELECT * FROM view_user_find WHERE id = ?", [usuario_id])
+                row = cur.fetchone()
+                if row is None:
+                    flash("El usuario no se encuentra en la BD.")
+                    return row
+                else:
+                    return row    
+            except Error:
+                print(Error)                 

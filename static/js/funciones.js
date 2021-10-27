@@ -45,7 +45,7 @@ function crear_register(){
     document.getElementById("formRegister").action="/register/save"
 }
 
-function ir_publicaciones(){
+function ir_publicaciones_p(){
     document.getElementById("formEditProfile").action="/publicaciones"
 }
 

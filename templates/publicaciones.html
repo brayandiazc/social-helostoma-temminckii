@@ -27,7 +27,7 @@
               >
             </div>
             <h5 class="title is-6">
-              <a href="{{ url_for('detalle_pub',id_publicacion=key) }}"
+              <a href="{{ url_for('detalle_pub',id_publicacion=row["post_id"]) }}"
                 >{{ row["title"] }}</a 
               >
             </h5>
