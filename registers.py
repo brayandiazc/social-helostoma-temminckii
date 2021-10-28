@@ -42,12 +42,12 @@ class register():
         return self.id_type       
 
 def sql_insert_user(usuario, correo,hashclave,is_active,created_at,id_type):
-        
+        img="people-2.jpeg"
         conn =create_connection("helostoma.db") 
         with conn as con:
             try:
                 cur = con.cursor()                                
-                cur.execute("INSERT INTO user (username,email, password,is_active, created_at,id_type) VALUES(?,?,?,?,?,?) ", (usuario, correo,hashclave,is_active,created_at,id_type))
+                cur.execute("INSERT INTO user (username,email, password,is_active, created_at,id_type, image, image_header) VALUES(?,?,?,?,?,?,?,?) ", (usuario, correo,hashclave,is_active,created_at,id_type,img, img))
                 con.commit
             except Error:
                 con.rollback()
