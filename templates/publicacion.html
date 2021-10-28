@@ -29,16 +29,15 @@
           </div>-->
           <div class="card-image">
             <figure class="image is-4by3">
-              
               <img
                 src="{{ url_for('static', filename = 'images/'+row_info.src) }}"
                 alt="Placeholder image"
-              />  
+              />
 
-              {{ row_info.src }}     
-              {{ row_info.title_img }}                     
+              {{ row_info.src }}
+              {{ row_info.title_img }}
             </figure>
-          </div>          
+          </div>
           <div class="card-content">
             <div class="block">
               <small class="is-size-7">{{ row_info["CREATED_AT"] }} | @{{ row_info["USERNAME"] }} </small>
@@ -68,9 +67,7 @@
               </div>
             </nav>
             <hr />
-            
             <article class="media">
-              
               <div class="media-content">
                 {% for row_comment in row_info_comment %}
                 <div class="content">
@@ -88,16 +85,15 @@
                 </div>
                 {% endfor %}
               </div>
-              
             </article>
             <form
               class="box"
               action="{{url_for('save_comment')}}"
               id="CommentsForm"
               method="post"
-              name="CommentsForm" 
+              name="CommentsForm"
             >
-              {{ form.hidden_tag() }}            
+              {{ form.hidden_tag() }}
               <article class="media" id="p_id" name="{{ row_info.post_id }}">
                 <div class="media-content">
                   <div class="field">

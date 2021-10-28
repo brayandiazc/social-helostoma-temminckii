@@ -14,6 +14,7 @@
   name="formSearch"
 >
   {{ form.hidden_tag() }}
+<br>
 <section class="section">
   <div class="container">
     <div class="field has-addons">
@@ -34,33 +35,20 @@
   <div class="container">
     <div class="columns is-multiline has-text-centered">
       {% for row in row_info %}
-
-      <div class="column is-6-tablet is-3-desktop">
-        <div class="box has-background-white">
-          <div class="has-text-centered mb-4">
-            <a href="{{ url_for('perfil_bq',usuario_id=row["id"]) }}" class="image is-48x48 m-auto">
-              <img
-                alt="profil"
-                src="{{ url_for('static', filename = 'images/'+row["image"]) }}"
-                class="is-rounded"
-              />
-            </a>
+      <div class="column is-6-tablet is-4-desktop">
+        <a href="{{ url_for('perfil_bq',usuario_id=row["id"]) }}">
+          <div class="box" style="height: 100%">
+            <div class="level">
+              <div class="level-item">
+                <figure class="image is-128x128"><img class="is-rounded" src="{{ url_for('static', filename = 'images/'+row["image"]) }}" alt=""></figure>
+              </div>
+            </div>
+            <h5 class="title is-5">{{ row["NAME_COMPLETE"] | truncate(20) }}</h5>
+            <p class="subtitle is-6">{{ row["username"] }}</p>
+            <p>{{ row["likes"] | truncate(100) }}</p>
           </div>
-          <div class="has-text-centereder">
-            <p class="is-size-4 has-text-grey-dark">
-              <a href="{{ url_for('perfil_bq',usuario_id=row["id"]) }}">
-              {{ row["NAME_COMPLETE"] }}</a>
-            </p>
-            <p class="is-size-5 has-text-grey has-text-weight-light">
-              {{ row["username"] }}
-            </p>
-            <p class="is-size-6 has-text-grey py-4 has-text-weight-light">
-              {{ row["likes"] }}
-            </p>
-          </div>
-        </div>
+        </a>
       </div>
-
       {% endfor %}
     </div>
   </div>
