@@ -198,7 +198,77 @@ CREATE TABLE profile (
     )
     REFERENCES user (id)                                      /** Referencia Usuario id **/
 );
+
+/**  --------------------------------------------------------------         **/
+/* Tipo vista  */
+DROP VIEW view_user_post;                                     /* Tipo vista publicaciones usuario */ 
+
+CREATE VIEW view_user_post AS
+    SELECT A.ID AS USER_ID,
+           A.USERNAME,
+           A.NAME,
+           A.LASTNAME,
+           NAME || " " || LASTNAME AS NAME_COMPLETE,
+           A.GENDER,
+           A.IMAGE,
+           A.IMAGE_HEADER,
+           A.LIKES,
+           B.ID AS POST_ID,
+           B.TITLE,
+           B.CONTENT,
+           B.CREATED_AT,
+           B.IS_ACTIVE,
+           C.IMAGE_ID,
+           D.TITLE AS TITLE_IMG,
+           D.SRC,
+           D.CONTENT
+      FROM USER AS A,
+           POST AS B,
+           POST_IMAGE AS C,
+           IMAGE AS D
+     WHERE A.ID = B.AUTHOR_REF_ID AND 
+           B.ID = C.POST_ID AND 
+           C.IMAGE_ID = D.ID;
+           
 /**  ----------------------------------------------------------------------------------------------        **/
+/* Tipo vista  */           
+DROP VIEW view_user_find;                                             /* Tipo vista busqueda usuario */ 
+
+CREATE VIEW view_user_find AS
+    SELECT USERNAME,
+           NAME || " " || LASTNAME AS NAME_COMPLETE,
+           LIKES,
+           IS_ACTIVE
+      FROM USER;  
+
+/**  ----------------------------------------------------------------------------------------------        **/
+/* Tipo vista  */      
+DROP VIEW view_post_comment;                         
+
+
+CREATE VIEW view_post_comment AS                                      /* Tipo vista comentario de publicaciones */  
+    SELECT B.ID AS POST_ID,
+           B.AUTHOR_REF_ID AS USER_ID_POST,
+           E.ID,
+           E.USER_ID,
+           E.CONTENT,
+           E.CREATED_AT,
+           E.IS_ACTIVE,
+           A.USERNAME,
+           A.NAME || " " || A.LASTNAME AS NAME_COMPLETE_POST,
+           (
+               SELECT NAME || " " || LASTNAME
+                 FROM USER
+                WHERE ID = E.USER_ID
+           )
+           AS NAME_COMPLETE_COMMENT
+      FROM POST AS B,
+           COMMENT AS E,
+           USER AS A
+     WHERE B.ID = E.REF_ID AND 
+           B.AUTHOR_REF_ID = A.ID;  
+/**  ---Con estas vistas se busca agilizar la busqueda de la informacion en la base de datos y asi ser mas eficiente en su manipulacion   **/
+
 /**  ----------------------------------------------------------------------------------------------        **/
 /**  ----------------------------------------------------------------------------------------------        **/
 /**  ----------------------------------------------------------------------------------------------        **/
