@@ -198,6 +198,47 @@ CREATE TABLE profile (
     )
     REFERENCES user (id)                                      /** Referencia Usuario id **/
 );
+                           /** View Sqlite  **/
+
+DROP VIEW view_user_find;                                     /** Se creó vista busqueda usuario en Sqlite  **/
+
+CREATE VIEW view_user_find AS
+    SELECT USERNAME,
+           NAME || " " || LASTNAME AS NAME_COMPLETE,
+           LIKES,
+           IS_ACTIVE
+      FROM USER;
+
+                           /** View Sqlite  **/
+			   
+DROP VIEW view_post_comment;
+
+CREATE VIEW view_post_comment AS                              /** Se creó vista comentario publicaciones en Sqlite  **/
+    SELECT B.ID AS POST_ID,
+           B.AUTHOR_REF_ID AS USER_ID_POST,
+           E.ID,
+           E.USER_ID,
+           E.CONTENT,
+           E.CREATED_AT,
+           E.IS_ACTIVE,
+           A.USERNAME,
+           A.NAME || " " || A.LASTNAME AS NAME_COMPLETE_POST,
+           (
+
+		   
+		                   /** View Sqlite  **/
+SELECT NAME || " " || LASTNAME
+                 FROM USER
+                WHERE ID = E.USER_ID
+           )
+           AS NAME_COMPLETE_COMMENT
+      FROM POST AS B,
+           COMMENT AS E,
+           USER AS A
+     WHERE B.ID = E.REF_ID AND 
+           B.AUTHOR_REF_ID = A.ID;
+
+
 /**  ----------------------------------------------------------------------------------------------        **/
 /**  ----------------------------------------------------------------------------------------------        **/
 /**  ----------------------------------------------------------------------------------------------        **/
