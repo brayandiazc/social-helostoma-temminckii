@@ -457,6 +457,16 @@ def msg():
         flash("El usuario debe iniciar sesión.")
         return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
+# Mensajes ---------------------
+@app.route("/conversacion",methods=["GET"])
+def conversacion():
+    global sesion_iniciada
+    if "user" in session:
+        return render_template("conversacion.html", sesion_iniciada=sesion_iniciada,lista_mensaje=lista_mensaje)
+    else:
+        flash("El usuario debe iniciar sesión.")
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
+
 # Mensajes privados --------------
 @app.route("/msg_privado/<id_msg>",methods=["GET","POST"])
 def msg_privado(id_msg):

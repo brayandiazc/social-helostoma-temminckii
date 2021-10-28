@@ -9,293 +9,272 @@
   <div class="conatiner">
     <div class="columns">
       <div class="column is-6 is-offset-3">
-        <div class="box has-background-success-light">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img
-                  src="{{ url_for('static', filename='images/people-2.jpeg') }}"
-                  class="is-rounded"
-                  alt="Image"
-                />
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Katherine Carroll</strong> <small>k.thev</small>
-                  <br />
-                  Este es el primer mensaje de prueba
-                </p>
+        <a href="{{ url_for('conversacion') }}" class="">
+          <div class="box has-background-success-light">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img
+                    src="{{ url_for('static', filename='images/people-2.jpeg') }}"
+                    class="is-rounded"
+                    alt="Image"
+                  />
+                </figure>
               </div>
-              <nav class="level is-mobile">
-                <div class="level-left">
-                  <a class="level-item" aria-label="reply">
-                    <span class="icon is-small">
-                      <i class="fas fa-reply" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="retweet">
-                    <span class="icon is-small">
-                      <i class="fas fa-retweet" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="like">
-                    <span class="icon is-small">
-                      <i class="fas fa-heart" aria-hidden="true"></i>
-                    </span>
-                  </a>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Katherine Carroll</strong> <small>k.thev</small>
+                    <br />
+                    Este es el primer mensaje de prueba
+                  </p>
                 </div>
-              </nav>
-            </div>
-          </article>
-        </div>
-        <div class="box has-background-danger-light">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img
-                  src="{{ url_for('static', filename='images/people-1.jpg') }}"
-                  class="is-rounded"
-                  alt="Image"
-                />
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Jairo Viñas P</strong> <small>jairo.vinas</small>
-                  <br />
-                  Segunda respuesta probando la app
-                </p>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <a class="level-item" aria-label="reply">
+                      <span class="icon is-small">
+                        <i class="fas fa-reply" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="retweet">
+                      <span class="icon is-small">
+                        <i class="fas fa-retweet" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="like">
+                      <span class="icon is-small">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </div>
+                </nav>
               </div>
-              <nav class="level is-mobile">
-                <div class="level-left">
-                  <a class="level-item" aria-label="reply">
-                    <span class="icon is-small">
-                      <i class="fas fa-reply" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="retweet">
-                    <span class="icon is-small">
-                      <i class="fas fa-retweet" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="like">
-                    <span class="icon is-small">
-                      <i class="fas fa-heart" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </div>
-              </nav>
-            </div>
-          </article>
-        </div>
-        <div class="box has-background-success-light">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img
-                  src="{{ url_for('static', filename='images/people-3.jpeg') }}"
-                  class="is-rounded"
-                  alt="Image"
-                />
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>John Molina</strong> <small>jmolina</small>
-                  <br />
-                  Esta parte es donde se llevaran todos los mensajes privados con los usuarios
-                </p>
-              </div>
-              <nav class="level is-mobile">
-                <div class="level-left">
-                  <a class="level-item" aria-label="reply">
-                    <span class="icon is-small">
-                      <i class="fas fa-reply" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="retweet">
-                    <span class="icon is-small">
-                      <i class="fas fa-retweet" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="like">
-                    <span class="icon is-small">
-                      <i class="fas fa-heart" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </div>
-              </nav>
-            </div>
-          </article>
-        </div>
-        <div class="box has-background-danger-light">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img
-                  src="{{ url_for('static', filename='images/people-1.jpg') }}"
-                  class="is-rounded"
-                  alt="Image"
-                />
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Jairo Armando Viñas Perez</strong> <small>javinas</small>
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aenean efficitur sit amet massa fringilla egestas. Nullam
-                  condimentum luctus turpis.
-                </p>
-              </div>
-              <nav class="level is-mobile">
-                <div class="level-left">
-                  <a class="level-item" aria-label="reply">
-                    <span class="icon is-small">
-                      <i class="fas fa-reply" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="retweet">
-                    <span class="icon is-small">
-                      <i class="fas fa-retweet" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="like">
-                    <span class="icon is-small">
-                      <i class="fas fa-heart" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </div>
-              </nav>
-            </div>
-          </article>
-        </div>
-        <div class="box has-background-success-light">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img
-                  src="{{ url_for('static', filename='images/people-3.jpeg') }}"
-                  class="is-rounded"
-                  alt="Image"
-                />
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Fernando Sandoval</strong> <small>efsandoval</small>
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aenean efficitur sit amet massa fringilla egestas. Nullam
-                  condimentum luctus turpis.
-                </p>
-              </div>
-              <nav class="level is-mobile">
-                <div class="level-left">
-                  <a class="level-item" aria-label="reply">
-                    <span class="icon is-small">
-                      <i class="fas fa-reply" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="retweet">
-                    <span class="icon is-small">
-                      <i class="fas fa-retweet" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="like">
-                    <span class="icon is-small">
-                      <i class="fas fa-heart" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </div>
-              </nav>
-            </div>
-          </article>
-        </div>
-        <div class="box has-background-danger-light">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img
-                  src="{{ url_for('static', filename='images/people-3.jpeg') }}"
-                  class="is-rounded"
-                  alt="Image"
-                />
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>Brayan Diaz</strong> <small>brayandiazc</small>
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aenean efficitur sit amet massa fringilla egestas. Nullam
-                  condimentum luctus turpis.
-                </p>
-              </div>
-              <nav class="level is-mobile">
-                <div class="level-left">
-                  <a class="level-item" aria-label="reply">
-                    <span class="icon is-small">
-                      <i class="fas fa-reply" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="retweet">
-                    <span class="icon is-small">
-                      <i class="fas fa-retweet" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="like">
-                    <span class="icon is-small">
-                      <i class="fas fa-heart" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </div>
-              </nav>
-            </div>
-          </article>
-        </div>
-        <hr />
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img
-                src="{{ url_for('static', filename='images/people-3.jpeg') }}"
-                class="is-rounded"
-              />
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="field">
-              <p class="control">
-                <textarea
-                  class="textarea"
-                  placeholder="Add a comment..."
-                ></textarea>
-              </p>
-            </div>
-            <nav class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <a class="button is-info">Submit</a>
-                </div>
-              </div>
-              <div class="level-right">
-                <div class="level-item">
-                  <label class="checkbox">
-                    <input type="checkbox" /> Press enter to submit
-                  </label>
-                </div>
-              </div>
-            </nav>
+            </article>
           </div>
-        </article>
+        </a>
+        <a href="{{ url_for('conversacion') }}" class="">
+          <div class="box has-background-danger-light">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img
+                    src="{{ url_for('static', filename='images/people-1.jpg') }}"
+                    class="is-rounded"
+                    alt="Image"
+                  />
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Jairo Viñas P</strong> <small>jairo.vinas</small>
+                    <br />
+                    Segunda respuesta probando la app
+                  </p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <a class="level-item" aria-label="reply">
+                      <span class="icon is-small">
+                        <i class="fas fa-reply" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="retweet">
+                      <span class="icon is-small">
+                        <i class="fas fa-retweet" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="like">
+                      <span class="icon is-small">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </div>
+        </a>
+        <a href="{{ url_for('conversacion') }}" class="">
+          <div class="box has-background-success-light">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img
+                    src="{{ url_for('static', filename='images/people-3.jpeg') }}"
+                    class="is-rounded"
+                    alt="Image"
+                  />
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>John Molina</strong> <small>jmolina</small>
+                    <br />
+                    Esta parte es donde se llevaran todos los mensajes privados
+                    con los usuarios
+                  </p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <a class="level-item" aria-label="reply">
+                      <span class="icon is-small">
+                        <i class="fas fa-reply" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="retweet">
+                      <span class="icon is-small">
+                        <i class="fas fa-retweet" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="like">
+                      <span class="icon is-small">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </div>
+        </a>
+        <a href="{{ url_for('conversacion') }}" class="">
+          <div class="box has-background-danger-light">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img
+                    src="{{ url_for('static', filename='images/people-1.jpg') }}"
+                    class="is-rounded"
+                    alt="Image"
+                  />
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Jairo Armando Viñas Perez</strong>
+                    <small>javinas</small>
+                    <br />
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Aenean efficitur sit amet massa fringilla egestas. Nullam
+                    condimentum luctus turpis.
+                  </p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <a class="level-item" aria-label="reply">
+                      <span class="icon is-small">
+                        <i class="fas fa-reply" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="retweet">
+                      <span class="icon is-small">
+                        <i class="fas fa-retweet" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="like">
+                      <span class="icon is-small">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </div>
+        </a>
+        <a href="{{ url_for('conversacion') }}" class="">
+          <div class="box has-background-success-light">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img
+                    src="{{ url_for('static', filename='images/people-3.jpeg') }}"
+                    class="is-rounded"
+                    alt="Image"
+                  />
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Fernando Sandoval</strong> <small>efsandoval</small>
+                    <br />
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Aenean efficitur sit amet massa fringilla egestas. Nullam
+                    condimentum luctus turpis.
+                  </p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <a class="level-item" aria-label="reply">
+                      <span class="icon is-small">
+                        <i class="fas fa-reply" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="retweet">
+                      <span class="icon is-small">
+                        <i class="fas fa-retweet" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="like">
+                      <span class="icon is-small">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </div>
+        </a>
+        <a href="{{ url_for('conversacion') }}" class="">
+          <div class="box has-background-danger-light">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img
+                    src="{{ url_for('static', filename='images/people-3.jpeg') }}"
+                    class="is-rounded"
+                    alt="Image"
+                  />
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Brayan Diaz</strong> <small>brayandiazc</small>
+                    <br />
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Aenean efficitur sit amet massa fringilla egestas. Nullam
+                    condimentum luctus turpis.
+                  </p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <a class="level-item" aria-label="reply">
+                      <span class="icon is-small">
+                        <i class="fas fa-reply" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="retweet">
+                      <span class="icon is-small">
+                        <i class="fas fa-retweet" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a class="level-item" aria-label="like">
+                      <span class="icon is-small">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </div>
+        </a>
       </div>
     </div>
   </div>
