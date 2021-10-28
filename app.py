@@ -170,17 +170,17 @@ def salir():
 # Perfil ----------------------
 @app.route("/perfil",methods=["GET","POST"])
 def perfil():
-    if "user" in session:  
+    if "user" in session:
         usuario_id=session["id"]
         row_user=sql_get_user_info_login_post(usuario_id)
 
         profile_name=row_user["name_complete"]
         profile_image=row_user["image"]
 
-        row_post=sql_get_post_search(usuario_id)   
+        row_post=sql_get_post_search(usuario_id)
         for row in row_post:
             print(row["src"])
-    
+
         return render_template("perfil.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones,row_post=row_post,profile_name=profile_name,profile_image=profile_image,row_user=row_user)
 
     else:
@@ -190,12 +190,12 @@ def perfil():
 # Perfil ----------------------
 @app.route("/perfil_bq/<usuario_id>",methods=["GET","POST"])
 def perfil_bq(usuario_id):
-    if "user" in session:  
+    if "user" in session:
         #usuario_id=session["id"]
         row_user=sql_get_user_info_login_post(usuario_id)
         profile_name=row_user["name_complete"]
         profile_image=row_user["image"]
-        row_post=sql_get_post_search(usuario_id)   
+        row_post=sql_get_post_search(usuario_id)
         for row in row_post:
             print(row["src"])
 
@@ -203,7 +203,7 @@ def perfil_bq(usuario_id):
 
     else:
         flash("El usuario debe iniciar sesión.")
-        return render_template("index.html", sesion_iniciada=sesion_iniciada)        
+        return render_template("index.html", sesion_iniciada=sesion_iniciada)
 
 
 @app.route("/perfil_edit",methods=["GET","POST"])
@@ -294,7 +294,7 @@ def superadmin_informacion(id_superadmin):
 def publicacion_new():
     global sesion_iniciada
     form = PhotoForm()
-    if "user" in session:    
+    if "user" in session:
         return render_template("publicacion_new.html", sesion_iniciada=sesion_iniciada,form=form)
     else:
         flash("El usuario debe iniciar sesión.")
@@ -343,12 +343,11 @@ def publicacion_new_save():
 # Publicaciones --------------
 @app.route("/publicaciones",methods=["GET","POST"])
 def publicacion():
-    
-    if "user" in session:   
-        row_post=sql_get_post_search_all()    
+    if "user" in session:
+        row_post=sql_get_post_search_all()
         for row in row_post:
-            print(row["src"])        
-        return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada, row_post=row_post)  
+            print(row["src"])
+        return render_template("publicaciones.html", sesion_iniciada=sesion_iniciada, row_post=row_post)
 
     else:
         flash("El usuario debe iniciar sesión.")
@@ -369,7 +368,7 @@ def detalle_pub(id_publicacion):
             return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form)
         else:
                 flash("El usuario debe iniciar sesión.")
-                return render_template("index.html", sesion_iniciada=sesion_iniciada)                
+                return render_template("index.html", sesion_iniciada=sesion_iniciada)
     except Error:
             return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form) 
 
@@ -379,7 +378,7 @@ def save_comment():
     form=CommentsForm()
     try:
         if "user" in session:
-            
+
             id_publicacion=escape(form.pub.data)
             form.pub.data=id_publicacion
             contenido=escape(form.contenido.data)
@@ -398,7 +397,7 @@ def save_comment():
             return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form)
         else:
                 flash("El usuario debe iniciar sesión.")
-                return render_template("index.html", sesion_iniciada=sesion_iniciada)                
+                return render_template("index.html", sesion_iniciada=sesion_iniciada)
     except Error:
             return render_template("publicacion.html", sesion_iniciada=sesion_iniciada,lista_publicaciones=lista__publicaciones, id_publicacion=id_publicacion,row_info=row_info,row_info_comment=row_info_comment,form=form) 
 
@@ -438,7 +437,7 @@ def busqueda_get():
 # Busqueda de usuario ---------------------------
 @app.route("/busqueda/<id_usuario>",methods=["GET","POST"])
 def busqueda_usuario(id_usuario):
-    if "user" in session:     
+    if "user" in session:
         id_usuario=int(id_usuario)
         if id_usuario in lista_usuarios:
             return render_template("busqueda.html", sesion_iniciada=sesion_iniciada,lista_usuarios=lista_usuarios, id_usuario=id_usuario,lista_publicaciones=lista__publicaciones)
@@ -452,7 +451,7 @@ def busqueda_usuario(id_usuario):
 @app.route("/msg",methods=["GET"])
 def msg():
     global sesion_iniciada
-    if "user" in session:  
+    if "user" in session:
         return render_template("mensajes.html", sesion_iniciada=sesion_iniciada,lista_mensaje=lista_mensaje)
     else:
         flash("El usuario debe iniciar sesión.")
@@ -461,7 +460,7 @@ def msg():
 # Mensajes privados --------------
 @app.route("/msg_privado/<id_msg>",methods=["GET","POST"])
 def msg_privado(id_msg):
-    if "user" in session: 
+    if "user" in session:
         try:
             id_msg=int(id_msg)
         except Exception as e:

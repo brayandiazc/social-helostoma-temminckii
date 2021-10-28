@@ -15,34 +15,34 @@ from forms import formRegister
 
 from markupsafe import escape                        #Cambia lo ingresado en el formulario a texto
 import hashlib #Criptografia
-from werkzeug.security import generate_password_hash 
+from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
 def sql_get_user_search(usuario):
-        
-        conn =create_connection("helostoma.db") 
+
+        conn =create_connection("helostoma.db")
         with conn as con:
             try:
                 con.row_factory=sqlite3.Row
-                cur = con.cursor()        
+                cur = con.cursor()
                 #my_data=str([usuario])
-                my_data=('%'+usuario+'%',) 
+                my_data=('%'+usuario+'%',)
                 print(my_data)
                 cur.execute("SELECT * FROM view_user_find WHERE NAME_COMPLETE LIKE ?",my_data )
                 row = cur.fetchall()
                 return row
             except Error:
-                print(Error)  
+                print(Error)
 
 def sql_get_user_search_all():
-        
-        conn =create_connection("helostoma.db") 
+
+        conn =create_connection("helostoma.db")
         with conn as con:
             try:
                 con.row_factory=sqlite3.Row
-                cur = con.cursor()        
+                cur = con.cursor()
                 cur.execute("SELECT * FROM view_user_find WHERE IS_ACTIVE=1")
                 row = cur.fetchall()
                 return row
             except Error:
-                print(Error)  
+                print(Error)
